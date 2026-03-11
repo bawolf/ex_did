@@ -13,7 +13,7 @@ defmodule ExDid.KeyMulticodec do
   @codecs %{
     <<0xED, 0x01>> => {:ed25519, "Ed25519VerificationKey2020"},
     <<0xEC, 0x01>> => {:x25519, "X25519KeyAgreementKey2020"},
-    <<0xE7, 0x01>> => {:secp256k1, "EcdsaSecp256k1VerificationKey2019"},
+    <<0xE7, 0x01>> => {:secp256k1, "Multikey"},
     <<0x80, 0x24>> => {:p256, "Multikey"},
     <<0x81, 0x24>> => {:p384, "Multikey"},
     <<0x82, 0x24>> => {:p521, "Multikey"}

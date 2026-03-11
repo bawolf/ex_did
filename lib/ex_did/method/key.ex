@@ -161,9 +161,7 @@ defmodule ExDid.Method.Key do
         _ ->
           %{
             "authentication" => [method_id],
-            "assertionMethod" => [method_id],
-            "capabilityInvocation" => [method_id],
-            "capabilityDelegation" => [method_id]
+            "assertionMethod" => [method_id]
           }
       end
 

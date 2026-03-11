@@ -10,6 +10,7 @@ defmodule ExDidTest do
 
   @fixtures_dir Path.expand("fixtures", __DIR__)
   @upstream_dir Path.join(@fixtures_dir, "upstream")
+  @ssi_upstream_dir Path.join(@upstream_dir, "ssi")
 
   describe "method/1" do
     test "extracts the method from a DID" do
@@ -247,6 +248,33 @@ defmodule ExDidTest do
         assert hd(result.did_document["verificationMethod"])["publicKeyMultibase"] == fingerprint
       end
     end
+
+    test "resolves a secp256k1 multikey DID locally" do
+      did = example_did_key_secp256k1()
+      expected = ssi_case!("released", "did-key-secp256k1-resolve")["expected"]["didDocument"]
+
+      result = ExDid.resolve(did)
+
+      assert result.did_document == expected
+    end
+
+    test "resolves a P-256 multikey DID locally" do
+      did = example_did_key_p256()
+      expected = ssi_case!("released", "did-key-p256-resolve")["expected"]["didDocument"]
+
+      result = ExDid.resolve(did)
+
+      assert result.did_document == expected
+    end
+
+    test "resolves a P-384 multikey DID locally" do
+      did = example_did_key_p384()
+      expected = ssi_case!("released", "did-key-p384-resolve")["expected"]["didDocument"]
+
+      result = ExDid.resolve(did)
+
+      assert result.did_document == expected
+    end
   end
 
   describe "resolve/2 for did:jwk" do
@@ -398,6 +426,70 @@ defmodule ExDidTest do
     end
   end
 
+  describe "ssi parity corpus" do
+    test "released ssi corpus manifests stay runnable for overlapping cases" do
+      manifest = ssi_manifest!("released")
+
+      assert manifest["advisory"] == false
+      assert manifest["cases"] != []
+
+      Enum.each(manifest["cases"], fn entry ->
+        case_data = ssi_case_by_file!("released", entry["file"])
+
+        case case_data["operation"] do
+          "resolve" ->
+            result = ssi_resolve_case(case_data)
+            assert result.did_document != nil
+
+          "resolveRepresentation" ->
+            result = ssi_resolve_representation_case(case_data)
+            assert result.content_stream != nil
+            assert result.content_type in ["application/did+json", "application/did+ld+json"]
+
+          "dereference" ->
+            result = ssi_dereference_case(case_data)
+            assert result.content_stream != nil
+        end
+      end)
+    end
+
+    test "advisory ssi corpus remains non-contractual metadata" do
+      manifest = ssi_manifest!("main")
+
+      assert manifest["advisory"] == true
+      assert manifest["channel"] == "main"
+    end
+
+    test "documents exact overlap with ssi for multikey secp curves" do
+      assert ExDid.resolve(example_did_key_secp256k1()).did_document ==
+               ssi_case!("released", "did-key-secp256k1-resolve")["expected"]["didDocument"]
+
+      assert ExDid.resolve(example_did_key_p256()).did_document ==
+               ssi_case!("released", "did-key-p256-resolve")["expected"]["didDocument"]
+
+      assert ExDid.resolve(example_did_key_p384()).did_document ==
+               ssi_case!("released", "did-key-p384-resolve")["expected"]["didDocument"]
+    end
+
+    test "documents the current js vs ssi disagreement for did:key ed25519" do
+      js_document =
+        upstream_case!("released", "did-key-ed25519-resolve")["expected"]["didDocument"]
+
+      ssi_document = ssi_case!("released", "did-key-ed25519-resolve")["expected"]["didDocument"]
+
+      refute js_document == ssi_document
+      assert ExDid.resolve(example_did_key()).did_document == js_document
+    end
+
+    test "documents the current js vs ssi disagreement for did:jwk okp" do
+      js_document = upstream_case!("released", "did-jwk-okp-resolve")["expected"]["didDocument"]
+      ssi_document = ssi_case!("released", "did-jwk-okp-resolve")["expected"]["didDocument"]
+
+      refute js_document == ssi_document
+      assert ExDid.resolve(example_did_jwk()).did_document == js_document
+    end
+  end
+
   defp fixture!(name) do
     @fixtures_dir
     |> Path.join(name)
@@ -426,6 +518,27 @@ defmodule ExDidTest do
     |> Jason.decode!()
   end
 
+  defp ssi_manifest!(channel) do
+    @ssi_upstream_dir
+    |> Path.join(channel)
+    |> Path.join("manifest.json")
+    |> File.read!()
+    |> Jason.decode!()
+  end
+
+  defp ssi_case!(channel, id) do
+    ssi_case_by_file!(channel, "#{id}.json")
+  end
+
+  defp ssi_case_by_file!(channel, file) do
+    @ssi_upstream_dir
+    |> Path.join(channel)
+    |> Path.join("cases")
+    |> Path.join(file)
+    |> File.read!()
+    |> Jason.decode!()
+  end
+
   defp example_did_key do
     "did:key:z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T"
   end
@@ -438,6 +551,18 @@ defmodule ExDidTest do
 
   defp example_did_key_x25519 do
     "did:key:z6LSotGbgPCJD2Y6TSvvgxERLTfVZxCh9KSrez3WNrNp7vKW"
+  end
+
+  defp example_did_key_secp256k1 do
+    "did:key:zQ3shtDoCx5Sdz8r78bEKXdn9BcVpLKDD3gkvMbY4Y5zLZPhh"
+  end
+
+  defp example_did_key_p256 do
+    "did:key:zDnaembS6RTHHn4VxPkoeCodDa1iwzUgUvqHN7bhBnBALBRTE"
+  end
+
+  defp example_did_key_p384 do
+    "did:key:z82LkvutaARmY8poLhUnMCAhFbts88q4yDBmkqwRFYbxpFvmE1nbGUGLKf9fD66LGUbXDce"
   end
 
   defp example_did_jwk_rsa do
@@ -481,6 +606,45 @@ defmodule ExDidTest do
           upstream_case!("released", "did-web-path-resolve")
         else
           upstream_case!("released", "did-web-root-resolve")
+        end
+
+      ExDid.dereference(input,
+        fetch_json: fn _url -> {:ok, root_case["expected"]["didDocument"]} end
+      )
+    else
+      ExDid.dereference(input)
+    end
+  end
+
+  defp ssi_resolve_case(case_data) do
+    if String.starts_with?(case_data["input"], "did:web:") do
+      ExDid.resolve(case_data["input"],
+        fetch_json: fn _url -> {:ok, case_data["expected"]["didDocument"]} end
+      )
+    else
+      ExDid.resolve(case_data["input"])
+    end
+  end
+
+  defp ssi_resolve_representation_case(case_data) do
+    if String.starts_with?(case_data["input"], "did:web:") do
+      ExDid.resolve_representation(case_data["input"],
+        fetch_json: fn _url -> {:ok, case_data["expected"]["contentStream"]} end
+      )
+    else
+      ExDid.resolve_representation(case_data["input"])
+    end
+  end
+
+  defp ssi_dereference_case(case_data) do
+    input = case_data["input"]
+
+    if String.starts_with?(input, "did:web:") do
+      root_case =
+        if String.contains?(input, ":user:alice") do
+          ssi_case!("released", "did-web-path-resolve")
+        else
+          ssi_case!("released", "did-web-root-resolve")
         end
 
       ExDid.dereference(input,

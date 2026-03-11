@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "advisory": true,
+  "channel": "main",
+  "generatedAt": "2026-03-11T17:25:55.696951+00:00",
+  "recorder": {
+    "name": "ex_did_ssi_parity",
+    "packageManager": "cargo"
+  },
+  "packages": {
+    "ssi-dids": "0.5.0",
+    "ssi-jwk": "0.4.0"
+  },
+  "cases": [
+    {
+      "file": "did-key-ed25519-resolve.json",
+      "id": "did-key-ed25519-resolve",
+      "input": "did:key:z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T",
+      "operation": "resolve"
+    },
+    {
+      "file": "did-key-ed25519-representation.json",
+      "id": "did-key-ed25519-representation",
+      "input": "did:key:z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T",
+      "operation": "resolveRepresentation"
+    },
+    {
+      "file": "did-key-ed25519-dereference.json",
+      "id": "did-key-ed25519-dereference",
+      "input": "did:key:z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T#z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T",
+      "operation": "dereference"
+    },
+    {
+      "file": "did-key-x25519-resolve.json",
+      "id": "did-key-x25519-resolve",
+      "input": "did:key:z6LSotGbgPCJD2Y6TSvvgxERLTfVZxCh9KSrez3WNrNp7vKW",
+      "operation": "resolve"
+    },
+    {
+      "file": "did-key-secp256k1-resolve.json",
+      "id": "did-key-secp256k1-resolve",
+      "input": "did:key:zQ3shtDoCx5Sdz8r78bEKXdn9BcVpLKDD3gkvMbY4Y5zLZPhh",
+      "operation": "resolve"
+    },
+    {
+      "file": "did-key-p256-resolve.json",
+      "id": "did-key-p256-resolve",
+      "input": "did:key:zDnaembS6RTHHn4VxPkoeCodDa1iwzUgUvqHN7bhBnBALBRTE",
+      "operation": "resolve"
+    },
+    {
+      "file": "did-key-p384-resolve.json",
+      "id": "did-key-p384-resolve",
+      "input": "did:key:z82LkvutaARmY8poLhUnMCAhFbts88q4yDBmkqwRFYbxpFvmE1nbGUGLKf9fD66LGUbXDce",
+      "operation": "resolve"
+    },
+    {
+      "file": "did-jwk-okp-resolve.json",
+      "id": "did-jwk-okp-resolve",
+      "input": "did:jwk:eyJjcnYiOiJFZDI1NTE5Iiwia3R5IjoiT0tQIiwieCI6IlZDcG8yTE1MaG42aVdrdThNS3ZTTGcyWkFvQy1ubE95UFZRYU8zRnhWZVEifQ",
+      "operation": "resolve"
+    },
+    {
+      "file": "did-jwk-okp-representation.json",
+      "id": "did-jwk-okp-representation",
+      "input": "did:jwk:eyJjcnYiOiJFZDI1NTE5Iiwia3R5IjoiT0tQIiwieCI6IlZDcG8yTE1MaG42aVdrdThNS3ZTTGcyWkFvQy1ubE95UFZRYU8zRnhWZVEifQ",
+      "operation": "resolveRepresentation"
+    },
+    {
+      "file": "did-jwk-okp-dereference.json",
+      "id": "did-jwk-okp-dereference",
+      "input": "did:jwk:eyJjcnYiOiJFZDI1NTE5Iiwia3R5IjoiT0tQIiwieCI6IlZDcG8yTE1MaG42aVdrdThNS3ZTTGcyWkFvQy1ubE95UFZRYU8zRnhWZVEifQ#0",
+      "operation": "dereference"
+    },
+    {
+      "file": "did-jwk-p256-resolve.json",
+      "id": "did-jwk-p256-resolve",
+      "input": "did:jwk:eyJjcnYiOiJQLTI1NiIsImt0eSI6IkVDIiwieCI6ImczZnN2MXhwV1BIMDk5TElVbl96Sm9PRjVVcjh4b2J5elp3WDltX2RKNEUiLCJ5IjoiOTMwNFVBRmw1NXhRTWZybkItektFampYRUM0T0ZXU3VZbnI3VzZoZGtWQSJ9",
+      "operation": "resolve"
+    },
+    {
+      "file": "did-jwk-rsa-resolve.json",
+      "id": "did-jwk-rsa-resolve",
+      "input": "did:jwk:eyJlIjoiQVFBQiIsImt0eSI6IlJTQSIsIm4iOiJzWGNoNE00RmhWNmQzaUQ0bjF4NFk2dzhzTXR2d2xIR2hFcS15M09DQVhvVHI0V3I5UFhnQzd2Umw2VndCM3A2azlSZHRxdk9CMGZPa0gxWloxeGQ2USJ9",
+      "operation": "resolve"
+    },
+    {
+      "file": "did-web-root-resolve.json",
+      "id": "did-web-root-resolve",
+      "input": "did:web:localhost%3A57433",
+      "operation": "resolve"
+    },
+    {
+      "file": "did-web-root-representation.json",
+      "id": "did-web-root-representation",
+      "input": "did:web:localhost%3A57433",
+      "operation": "resolveRepresentation"
+    },
+    {
+      "file": "did-web-root-dereference.json",
+      "id": "did-web-root-dereference",
+      "input": "did:web:localhost%3A57433#key-1",
+      "operation": "dereference"
+    },
+    {
+      "file": "did-web-path-resolve.json",
+      "id": "did-web-path-resolve",
+      "input": "did:web:localhost%3A57433:user:alice",
+      "operation": "resolve"
+    },
+    {
+      "file": "did-web-path-dereference.json",
+      "id": "did-web-path-dereference",
+      "input": "did:web:localhost%3A57433:user:alice#key-1",
+      "operation": "dereference"
+    }
+  ]
+}

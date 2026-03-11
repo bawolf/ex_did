@@ -1,0 +1,23 @@
+{
+  "expected": {
+    "contentMetadata": {
+      "deactivated": null
+    },
+    "contentStream": {
+      "controller": "did:key:z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T",
+      "id": "did:key:z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T#z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T",
+      "publicKeyMultibase": "z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T",
+      "type": "Multikey"
+    },
+    "dereferencingMetadata": {
+      "contentType": "application/did+ld+json"
+    }
+  },
+  "id": "did-key-ed25519-dereference",
+  "input": "did:key:z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T#z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T",
+  "operation": "dereference",
+  "provenance": {
+    "sourcePackage": "ssi-dids",
+    "sourceUrl": "https://crates.io/crates/ssi-dids/0.5.0"
+  }
+}

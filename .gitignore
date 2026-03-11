@@ -26,5 +26,6 @@ ex_did-*.tar
 /scripts/upstream_parity/node_modules/
 /scripts/upstream_parity/.npm/
 /scripts/upstream_parity/.cache/
+/scripts/ssi_parity/target/
 /test/fixtures/upstream/tmp/
 /test/fixtures/upstream/debug/

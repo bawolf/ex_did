@@ -1,0 +1,38 @@
+{
+  "expected": {
+    "didDocument": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/multikey/v1"
+      ],
+      "assertionMethod": [
+        "did:key:z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T#z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T"
+      ],
+      "authentication": [
+        "did:key:z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T#z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T"
+      ],
+      "id": "did:key:z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T",
+      "verificationMethod": [
+        {
+          "controller": "did:key:z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T",
+          "id": "did:key:z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T#z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T",
+          "publicKeyMultibase": "z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T",
+          "type": "Multikey"
+        }
+      ]
+    },
+    "didDocumentMetadata": {
+      "deactivated": null
+    },
+    "didResolutionMetadata": {
+      "contentType": "application/did+ld+json"
+    }
+  },
+  "id": "did-key-ed25519-resolve",
+  "input": "did:key:z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T",
+  "operation": "resolve",
+  "provenance": {
+    "sourcePackage": "ssi-dids",
+    "sourceUrl": "https://crates.io/crates/ssi-dids/0.5.0"
+  }
+}

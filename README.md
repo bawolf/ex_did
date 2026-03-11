@@ -13,6 +13,10 @@ The library exposes a method-agnostic API for DID parsing, DID resolution, DID
 representation resolution, DID URL dereferencing, and a small number of
 method-specific helper functions that remove common string-building mistakes.
 
+`ex_did` is intentionally DID-only. VC, VP, JWT, JWS, Data Integrity, and
+other SSI proof features belong in sibling libraries built on top of this DID
+foundation.
+
 ## Status
 
 Current support:
@@ -24,13 +28,14 @@ Current support:
 - deterministic local resolution for `did:key` and `did:jwk`
 - `did:web` URL mapping, fetching, validation, and dereferencing
 - verification method extraction across current and legacy shapes
+- maintainer-only parity corpora for both JavaScript resolvers and `ssi-dids`
 
 Not implemented yet:
 
 - additional DID methods
-- fully refreshed upstream JS parity corpus from the maintainer recorder
 - more advanced HTTP caching policy for `did:web`
 - broader DID document normalization rules beyond the current strict/compat set
+- broader `ssi` disagreement handling beyond the currently documented fixtures
 
 ## Installation
 
@@ -47,8 +52,9 @@ end
 
 ## Usage
 
-Normal `ex_did` usage does not require JavaScript, `pnpm`, or network access.
-Those are maintainer-only dependencies for rebuilding upstream parity fixtures.
+Normal `ex_did` usage does not require JavaScript, Rust, `pnpm`, Cargo, or
+network access. Those are maintainer-only dependencies for rebuilding upstream
+parity fixtures.
 
 Parse a DID or DID URL:
 
@@ -138,11 +144,11 @@ Build a canonical `did:web` value or canonical local verification method id:
 
 `did:key`
 - supported multicodec prefixes: Ed25519, X25519, secp256k1, P-256, P-384, P-521
-- currently fixture-covered examples: Ed25519, X25519
+- fixture-covered examples: Ed25519, X25519, secp256k1, P-256, P-384
 
 `did:jwk`
 - supported public key shapes: OKP, EC, RSA
-- currently fixture-covered examples: OKP, RSA
+- fixture-covered examples: OKP, EC P-256, RSA
 
 ## Validation Modes
 
@@ -181,7 +187,8 @@ URI-encoded DID path components are decoded before building the HTTPS URL.
 The library is tested with:
 
 - vendored fixture documents under `test/fixtures/`
-- upstream parity corpora under `test/fixtures/upstream/`
+- JavaScript resolver parity corpora under `test/fixtures/upstream/`
+- `ssi-dids` parity corpora under `test/fixtures/upstream/ssi/`
 - fixture provenance manifests for both local deterministic fixtures and
   upstream-recorded fixtures
 - property tests for DID parsing and deterministic local DID generation
@@ -205,6 +212,14 @@ pnpm run record:released
 pnpm run record:main
 ```
 
+Refresh `ssi` parity fixtures with the maintainer-only Rust recorder:
+
+```bash
+cd libs/ex_did/scripts/ssi_parity
+cargo run -- released
+cargo run -- main
+```
+
 The committed fixtures are the contract. End users and CI should not need to
 run the recorder.
 
@@ -214,8 +229,14 @@ The fixture policy is documented in `FIXTURE_POLICY.md`.
 
 - `upstream/released` is contractual and should back CI
 - `upstream/main` is advisory drift detection
+- `upstream/ssi/released` is contractual for overlapping DID-only `ssi` behavior
+- `upstream/ssi/main` is advisory `ssi` drift detection
 - scratch captures and debug output should not be committed
 - compat behavior must be backed by committed upstream fixture evidence
+
+When the JavaScript and `ssi` ecosystems disagree, `ex_did` documents the
+disagreement in tests and keeps strict mode aligned to the library's chosen
+spec-facing behavior rather than silently switching output shapes.
 
 ## Open Source Notes
 

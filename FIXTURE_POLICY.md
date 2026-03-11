@@ -4,20 +4,25 @@
 
 ## Contract Levels
 
-- `test/fixtures/upstream/released/` is contractual.
-- `test/fixtures/upstream/main/` is advisory drift detection.
+- `test/fixtures/upstream/released/` is the contractual JavaScript corpus.
+- `test/fixtures/upstream/main/` is advisory JavaScript drift detection.
+- `test/fixtures/upstream/ssi/released/` is the contractual `ssi` DID corpus.
+- `test/fixtures/upstream/ssi/main/` is advisory `ssi` drift detection.
 
 Released fixtures are the resolver-parity contract used by tests. Advisory
-fixtures exist to show how current upstream default branches are changing before
-those changes become release targets.
+fixtures exist to show how current upstream default branches or recorder
+snapshots are changing before those changes become release targets.
 
 ## Runtime Boundary
 
 Using `ex_did` does not require JavaScript, pnpm, or network access. Running
 the normal Elixir test suite should only consume committed fixtures.
 
-JavaScript tooling is maintainer-only and exists solely to refresh upstream
-fixtures under `libs/ex_did/scripts/upstream_parity/`.
+JavaScript tooling is maintainer-only and exists solely to refresh JS fixtures
+under `libs/ex_did/scripts/upstream_parity/`.
+
+Rust tooling is also maintainer-only and exists solely to refresh `ssi` DID
+fixtures under `libs/ex_did/scripts/ssi_parity/`.
 
 ## What Gets Committed
 

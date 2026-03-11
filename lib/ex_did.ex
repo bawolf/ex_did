@@ -5,8 +5,12 @@ defmodule ExDid do
   `ex_did` exposes a method-agnostic DID parsing, resolution, representation,
   and dereferencing API with strict validation by default.
 
-  The normal runtime and test path is pure Elixir. Upstream JavaScript resolver
-  tooling is only used by maintainers when refreshing committed parity fixtures.
+  The normal runtime and test path is pure Elixir. Upstream JavaScript and Rust
+  resolver tooling is only used by maintainers when refreshing committed parity
+  fixtures.
+
+  `ex_did` is intentionally scoped to DID concerns only. VC, VP, JWT, JWS,
+  Data Integrity, and proof workflows belong in sibling libraries.
 
   ## Examples
 
