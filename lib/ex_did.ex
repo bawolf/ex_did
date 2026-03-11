@@ -12,6 +12,12 @@ defmodule ExDid do
   `ex_did` is intentionally scoped to DID concerns only. VC, VP, JWT, JWS,
   Data Integrity, and proof workflows belong in sibling libraries.
 
+  Strict mode is canonical per method rather than globally uniform:
+
+  - `did:key` strict resolves to Multikey documents
+  - `did:jwk` strict resolves to JWK-native documents
+  - `validation: :compat` is reserved for legacy or interoperability quirks
+
   ## Examples
 
       iex> ExDid.method("did:web:example.com")
@@ -209,4 +215,15 @@ defmodule ExDid do
   @spec verification_methods(map()) :: [map()]
   def verification_methods(document) when is_map(document),
     do: ExDid.Document.verification_methods(document)
+
+  @doc """
+  Returns proof-compatible public JWKs extracted from verification methods.
+
+  This normalizes both `publicKeyJwk` and supported multikey
+  `publicKeyMultibase` representations into public JWK maps so sibling
+  libraries do not need to understand DID document key encodings directly.
+  """
+  @spec verification_method_jwks(map()) :: [map()]
+  def verification_method_jwks(document) when is_map(document),
+    do: ExDid.Document.verification_method_jwks(document)
 end

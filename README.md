@@ -17,6 +17,13 @@ method-specific helper functions that remove common string-building mistakes.
 other SSI proof features belong in sibling libraries built on top of this DID
 foundation.
 
+Strict mode is canonical per method:
+
+- `did:key` strict is Multikey-first for every supported multicodec
+- `did:jwk` strict is JWK-native for every supported JWK family
+- `validation: :compat` exists for legacy/interoperability quirks, not as a
+  second equal output family
+
 ## Status
 
 Current support:
@@ -145,10 +152,14 @@ Build a canonical `did:web` value or canonical local verification method id:
 `did:key`
 - supported multicodec prefixes: Ed25519, X25519, secp256k1, P-256, P-384, P-521
 - fixture-covered examples: Ed25519, X25519, secp256k1, P-256, P-384
+- strict profile: `Multikey` / `publicKeyMultibase`
+- compat profile: legacy JS shapes for Ed25519/X25519 where fixture-backed
 
 `did:jwk`
 - supported public key shapes: OKP, EC, RSA
 - fixture-covered examples: OKP, EC P-256, RSA
+- strict profile: JWK-native `publicKeyJwk`
+- compat profile: same output family, with leniency such as private-material stripping
 
 ## Validation Modes
 
@@ -156,8 +167,9 @@ Build a canonical `did:web` value or canonical local verification method id:
 
 `validation: :compat` is opt-in and intentionally narrow. It currently only
 relaxes behaviors that are explicitly implemented and covered by fixtures and
-tests, such as normalizing a single `service` object into a list and stripping
-private material from `did:jwk` inputs before building the public DID document.
+tests, such as normalizing a single `service` object into a list, preserving
+legacy JS `did:key` shapes where documented, and stripping private material
+from `did:jwk` inputs before building the public DID document.
 
 Strict mode is the production default. Compat mode is an interoperability tool,
 not a second equal runtime profile.
@@ -192,16 +204,10 @@ The library is tested with:
 - fixture provenance manifests for both local deterministic fixtures and
   upstream-recorded fixtures
 - property tests for DID parsing and deterministic local DID generation
-- strict / compat coverage for `did:web` and `did:jwk`
+- strict / compat coverage for `did:web`, `did:key`, and `did:jwk`
 - dereferencing coverage for `did:web`, `did:key`, and `did:jwk`
 - injected fetch functions so `did:web` resolution remains deterministic
 - downstream validation against current `apps/delegate` DID usage
-
-Refresh local deterministic fixtures with:
-
-```bash
-mix run scripts/refresh_fixtures.exs
-```
 
 Refresh upstream parity fixtures with the maintainer-only recorder:
 
@@ -221,7 +227,7 @@ cargo run -- main
 ```
 
 The committed fixtures are the contract. End users and CI should not need to
-run the recorder.
+run either recorder.
 
 ## Fixture Policy
 
@@ -235,8 +241,11 @@ The fixture policy is documented in `FIXTURE_POLICY.md`.
 - compat behavior must be backed by committed upstream fixture evidence
 
 When the JavaScript and `ssi` ecosystems disagree, `ex_did` documents the
-disagreement in tests and keeps strict mode aligned to the library's chosen
-spec-facing behavior rather than silently switching output shapes.
+disagreement in tests and keeps strict mode aligned to the library's
+method-specific canonical behavior rather than silently switching output
+shapes. In practice, that means `did:key` strict follows the library's
+Multikey-first contract while `did:jwk` strict remains JWK-native even though
+`ssi` may render that method differently.
 
 ## Open Source Notes
 
