@@ -7,6 +7,8 @@ and this project intends to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-03-10
+
 ### Added
 - Typed `ExDid` facade for parse, resolve, representation resolution, and dereferencing.
 - First-class `did:web`, `did:key`, and `did:jwk` method support.
