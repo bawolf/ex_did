@@ -1,0 +1,40 @@
+name: Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version being published"
+        required: true
+
+jobs:
+  hex-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          elixir-version: "1.18.4"
+          otp-version: "27.3"
+
+      - name: Install dependencies
+        run: mix deps.get
+
+      - name: Verify package version
+        run: |
+          grep -q "@version \"${{ github.event.inputs.version }}\"" mix.exs
+
+      - name: Run tests
+        run: mix test
+
+      - name: Build docs
+        run: mix docs
+
+      - name: Publish to Hex
+        env:
+          HEX_API_KEY: ${{ secrets.HEX_API_KEY }}
+        run: mix hex.publish --yes

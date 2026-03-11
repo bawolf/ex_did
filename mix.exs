@@ -35,6 +35,7 @@ defmodule ExDid.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:ex_doc, "~> 0.37", only: :dev, runtime: false},
       {:jason, "~> 1.4"},
       {:jose, "~> 1.11"},
       {:nimble_options, "~> 1.1"},
@@ -49,8 +50,8 @@ defmodule ExDid.MixProject do
       maintainers: ["Bryant Wolf"],
       links: %{
         "GitHub" => @source_url,
-        "Changelog" => "#{@source_url}/blob/main/libs/ex_did/CHANGELOG.md",
-        "Fixture Policy" => "#{@source_url}/blob/main/libs/ex_did/FIXTURE_POLICY.md"
+        "Changelog" => "#{@source_url}/blob/main/CHANGELOG.md",
+        "Fixture Policy" => "#{@source_url}/blob/main/FIXTURE_POLICY.md"
       }
     ]
   end

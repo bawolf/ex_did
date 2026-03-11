@@ -231,3 +231,11 @@ The intended workflow is:
 4. review and push from the standalone repo
 
 A helper script for the sync step lives at `scripts/sync_standalone_repo.sh`.
+
+The standalone repository also carries GitHub Actions workflows for:
+
+- CI on push and pull request
+- manual Hex publishing through `workflow_dispatch`
+
+The publish workflow expects a `HEX_API_KEY` repository secret in the standalone
+`ex_did` repository.
