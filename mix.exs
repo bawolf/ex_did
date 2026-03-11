@@ -50,6 +50,9 @@ defmodule ExDid.MixProject do
       maintainers: ["Bryant Wolf"],
       links: %{
         "GitHub" => @source_url,
+        "Hex" => "https://hex.pm/packages/ex_did",
+        "Docs" => "https://hexdocs.pm/ex_did",
+        "CI" => "#{@source_url}/actions/workflows/ci.yml",
         "Changelog" => "#{@source_url}/blob/main/CHANGELOG.md",
         "Fixture Policy" => "#{@source_url}/blob/main/FIXTURE_POLICY.md"
       }

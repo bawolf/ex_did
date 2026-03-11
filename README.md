@@ -1,6 +1,13 @@
 # ex_did
 
+[![Hex.pm](https://img.shields.io/hexpm/v/ex_did.svg)](https://hex.pm/packages/ex_did)
+[![Hex Docs](https://img.shields.io/badge/hex-docs-blue.svg)](https://hexdocs.pm/ex_did)
+[![CI](https://github.com/bawolf/ex_did/actions/workflows/ci.yml/badge.svg)](https://github.com/bawolf/ex_did/actions/workflows/ci.yml)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/bawolf/ex_did/blob/main/LICENSE)
+
 `ex_did` is a typed DID resolution library for Elixir.
+
+Quick links: [Hex package](https://hex.pm/packages/ex_did) | [Hex docs](https://hexdocs.pm/ex_did) | [Changelog](https://github.com/bawolf/ex_did/blob/main/CHANGELOG.md) | [Fixture policy](https://github.com/bawolf/ex_did/blob/main/FIXTURE_POLICY.md) | [CI](https://github.com/bawolf/ex_did/actions/workflows/ci.yml)
 
 The library exposes a method-agnostic API for DID parsing, DID resolution, DID
 representation resolution, DID URL dereferencing, and a small number of
