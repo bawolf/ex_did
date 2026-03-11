@@ -7,6 +7,17 @@ and this project intends to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-03-11
+
+### Added
+- Maintainer-only `ssi-dids` parity recorder and committed released/advisory Rust DID corpora.
+- Fixture-driven `ssi` parity coverage alongside the existing JavaScript resolver corpus.
+- Additional `did:key` fixture coverage for secp256k1, P-256, and P-384 multikey inputs.
+
+### Changed
+- Clarified the package docs and fixture policy around the DID-only scope of `ex_did`.
+- Aligned strict `did:key` multikey output more closely with current `ssi` behavior for secp256k1 and other non-Ed25519 multikey curves.
+
 ## [0.1.0] - 2026-03-10
 
 ### Added

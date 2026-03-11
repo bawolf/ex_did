@@ -44,7 +44,7 @@ Add `ex_did` to your dependencies:
 ```elixir
 def deps do
   [
-    {:ex_did, "~> 0.1.0"},
+    {:ex_did, "~> 0.1.1"},
     {:jose, "~> 1.11"}
   ]
 end
