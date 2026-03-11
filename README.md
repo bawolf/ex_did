@@ -272,7 +272,8 @@ A helper script for the sync step lives at `scripts/sync_standalone_repo.sh`.
 The standalone repository also carries GitHub Actions workflows for:
 
 - CI on push and pull request
-- manual Hex publishing through `workflow_dispatch`
+- manual publish through `workflow_dispatch`
 
 The publish workflow expects a `HEX_API_KEY` repository secret in the standalone
-`ex_did` repository.
+`ex_did` repository. Once triggered, it publishes to Hex and then creates the
+matching Git tag and GitHub release automatically.
