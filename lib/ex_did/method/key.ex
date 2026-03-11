@@ -22,7 +22,7 @@ defmodule ExDid.Method.Key do
     did = DIDURL.did_string(did_url)
 
     with {:ok, descriptor} <- descriptor(did_url),
-         document <- build_document(did, descriptor),
+         document <- build_document(did, descriptor, options.validation),
          :ok <- Document.validate(document, did, options.validation) do
       ResolutionResult.ok(
         document,
@@ -114,7 +114,7 @@ defmodule ExDid.Method.Key do
     end
   end
 
-  defp build_document(did, descriptor) do
+  defp build_document(did, descriptor, :strict) do
     method_id = did <> "#" <> descriptor.fingerprint
 
     relationships =
@@ -122,12 +122,7 @@ defmodule ExDid.Method.Key do
         :x25519 ->
           %{
             "keyAgreement" => [
-              %{
-                "id" => method_id,
-                "type" => "X25519KeyAgreementKey2020",
-                "controller" => did,
-                "publicKeyMultibase" => descriptor.fingerprint
-              }
+              multikey_resource(method_id, did, descriptor.fingerprint)
             ]
           }
 
@@ -135,22 +130,27 @@ defmodule ExDid.Method.Key do
           case KeyMulticodec.derive_x25519_multibase(descriptor.public_key_bytes) do
             {:ok, key_agreement_fingerprint} ->
               %{
+                "verificationMethod" => [
+                  multikey_resource(method_id, did, descriptor.fingerprint)
+                ],
                 "authentication" => [method_id],
                 "assertionMethod" => [method_id],
                 "capabilityInvocation" => [method_id],
                 "capabilityDelegation" => [method_id],
                 "keyAgreement" => [
-                  %{
-                    "id" => did <> "#" <> key_agreement_fingerprint,
-                    "type" => "X25519KeyAgreementKey2020",
-                    "controller" => did,
-                    "publicKeyMultibase" => key_agreement_fingerprint
-                  }
+                  multikey_resource(
+                    did <> "#" <> key_agreement_fingerprint,
+                    did,
+                    key_agreement_fingerprint
+                  )
                 ]
               }
 
             {:error, _reason} ->
               %{
+                "verificationMethod" => [
+                  multikey_resource(method_id, did, descriptor.fingerprint)
+                ],
                 "authentication" => [method_id],
                 "assertionMethod" => [method_id],
                 "capabilityInvocation" => [method_id],
@@ -160,51 +160,131 @@ defmodule ExDid.Method.Key do
 
         _ ->
           %{
+            "verificationMethod" => [
+              multikey_resource(method_id, did, descriptor.fingerprint)
+            ],
             "authentication" => [method_id],
-            "assertionMethod" => [method_id]
+            "assertionMethod" => [method_id],
+            "capabilityInvocation" => [method_id],
+            "capabilityDelegation" => [method_id]
           }
       end
 
     Map.merge(
-      base_document(did, descriptor, method_id, relationships),
+      base_document(did, relationships, ["https://w3id.org/security/multikey/v1"]),
       relationships
     )
   end
 
-  defp base_document(
-         did,
-         %{key_type: :x25519, verification_type: verification_type},
-         _method_id,
-         relationships
-       ) do
-    %{
+  defp build_document(did, descriptor, :compat) do
+    method_id = did <> "#" <> descriptor.fingerprint
+
+    relationships =
+      case descriptor.key_type do
+        :x25519 ->
+          %{
+            "keyAgreement" => [
+              legacy_x25519_resource(method_id, did, descriptor.fingerprint)
+            ]
+          }
+
+        :ed25519 ->
+          case KeyMulticodec.derive_x25519_multibase(descriptor.public_key_bytes) do
+            {:ok, key_agreement_fingerprint} ->
+              %{
+                "verificationMethod" => [
+                  legacy_ed25519_resource(method_id, did, descriptor.fingerprint)
+                ],
+                "authentication" => [method_id],
+                "assertionMethod" => [method_id],
+                "capabilityInvocation" => [method_id],
+                "capabilityDelegation" => [method_id],
+                "keyAgreement" => [
+                  legacy_x25519_resource(
+                    did <> "#" <> key_agreement_fingerprint,
+                    did,
+                    key_agreement_fingerprint
+                  )
+                ]
+              }
+
+            {:error, _reason} ->
+              %{
+                "verificationMethod" => [
+                  legacy_ed25519_resource(method_id, did, descriptor.fingerprint)
+                ],
+                "authentication" => [method_id],
+                "assertionMethod" => [method_id],
+                "capabilityInvocation" => [method_id],
+                "capabilityDelegation" => [method_id]
+              }
+          end
+
+        _ ->
+          %{
+            "verificationMethod" => [
+              multikey_resource(method_id, did, descriptor.fingerprint)
+            ],
+            "authentication" => [method_id],
+            "assertionMethod" => [method_id],
+            "capabilityInvocation" => [method_id],
+            "capabilityDelegation" => [method_id]
+          }
+      end
+
+    contexts =
+      case descriptor.key_type do
+        :ed25519 -> ["https://w3id.org/security/suites/ed25519-2020/v1"]
+        :x25519 -> []
+        _ -> ["https://w3id.org/security/multikey/v1"]
+      end
+
+    Map.merge(base_document(did, relationships, contexts), relationships)
+  end
+
+  defp base_document(did, relationships, contexts) do
+    document = %{
       "@context" =>
         ([
-           "https://www.w3.org/ns/did/v1",
-           verification_method_context(verification_type)
-         ] ++ key_agreement_contexts(relationships))
+           "https://www.w3.org/ns/did/v1"
+         ] ++ contexts ++ key_agreement_contexts(relationships))
         |> Enum.uniq(),
       "id" => did
     }
+
+    case Map.get(relationships, "verificationMethod") do
+      methods when is_list(methods) and methods != [] ->
+        Map.put(document, "verificationMethod", methods)
+
+      _ ->
+        document
+    end
   end
 
-  defp base_document(did, descriptor, method_id, relationships) do
-    verification_method = %{
-      "id" => method_id,
-      "type" => descriptor.verification_type,
-      "controller" => did,
-      "publicKeyMultibase" => descriptor.fingerprint
-    }
-
+  defp legacy_ed25519_resource(id, did, fingerprint) do
     %{
-      "@context" =>
-        ([
-           "https://www.w3.org/ns/did/v1",
-           verification_method_context(descriptor.verification_type)
-         ] ++ key_agreement_contexts(relationships))
-        |> Enum.uniq(),
-      "id" => did,
-      "verificationMethod" => [verification_method]
+      "id" => id,
+      "type" => "Ed25519VerificationKey2020",
+      "controller" => did,
+      "publicKeyMultibase" => fingerprint
+    }
+  end
+
+  defp multikey_resource(id, did, fingerprint) do
+    %{
+      "id" => id,
+      "type" => "Multikey",
+      "controller" => did,
+      "publicKeyMultibase" => fingerprint
+    }
+  end
+
+  defp legacy_x25519_resource(id, did, fingerprint) do
+    %{
+      "id" => id,
+      "type" => "X25519KeyAgreementKey2020",
+      "controller" => did,
+      "publicKeyMultibase" => fingerprint
     }
   end
 
@@ -230,6 +310,9 @@ defmodule ExDid.Method.Key do
 
   defp key_agreement_contexts(%{"keyAgreement" => [%{"type" => "X25519KeyAgreementKey2020"} | _]}),
     do: ["https://w3id.org/security/suites/x25519-2020/v1"]
+
+  defp key_agreement_contexts(%{"keyAgreement" => [%{"type" => "Multikey"} | _]}),
+    do: ["https://w3id.org/security/multikey/v1"]
 
   defp key_agreement_contexts(_), do: []
 end

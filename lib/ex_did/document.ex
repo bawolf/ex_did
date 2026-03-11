@@ -3,6 +3,7 @@ defmodule ExDid.Document do
 
   alias ExDid.DIDURL
   alias ExDid.Error
+  alias ExDid.KeyMulticodec
 
   @relationship_keys [
     "authentication",
@@ -16,6 +17,25 @@ defmodule ExDid.Document do
   def verification_methods(document) when is_map(document) do
     List.wrap(Map.get(document, "verificationMethod", [])) ++
       List.wrap(Map.get(document, "publicKey", []))
+  end
+
+  @spec verification_method_jwks(map()) :: [map()]
+  def verification_method_jwks(document) when is_map(document) do
+    document
+    |> verification_methods()
+    |> Enum.flat_map(fn
+      %{"publicKeyJwk" => %{} = jwk} ->
+        [jwk]
+
+      %{"publicKeyMultibase" => multibase} when is_binary(multibase) ->
+        case KeyMulticodec.public_jwk(multibase) do
+          {:ok, jwk} -> [jwk]
+          {:error, _reason} -> []
+        end
+
+      _ ->
+        []
+    end)
   end
 
   @spec dereference(map(), DIDURL.t()) :: {:ok, map()} | {:error, Error.t()}

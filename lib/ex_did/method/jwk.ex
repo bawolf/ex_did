@@ -21,7 +21,7 @@ defmodule ExDid.Method.Jwk do
 
     with {:ok, jwk} <- decode_jwk(did_url),
          {:ok, public_jwk} <- sanitize_jwk(jwk, options.validation, did),
-         document <- build_document(did, public_jwk),
+         {:ok, document} <- build_document(did, public_jwk, options.validation),
          :ok <- Document.validate(document, did, options.validation) do
       ResolutionResult.ok(
         document,
@@ -64,9 +64,11 @@ defmodule ExDid.Method.Jwk do
 
     with %{} = document <- result.did_document,
          {:ok, resource} <- Document.dereference(document, did_url) do
-      DereferencingResult.ok(decorate_resource(resource), %{did_document: did_url.did.value}, %{
-        "contentType" => "application/did+json"
-      })
+      DereferencingResult.ok(
+        decorate_resource(resource),
+        %{did_document: did_url.did.value},
+        %{"contentType" => "application/did+json"}
+      )
     else
       {:error, %Error{} = error} ->
         DereferencingResult.error(error)
@@ -140,16 +142,13 @@ defmodule ExDid.Method.Jwk do
 
   defp valid_public_jwk?(_), do: false
 
-  defp build_document(did, public_jwk) do
+  defp build_document(did, public_jwk, validation) when validation in [:strict, :compat] do
     method_id = did <> "#0"
 
     relationships =
       case public_jwk do
         %{"kty" => "OKP", "crv" => "X25519"} ->
           %{"keyAgreement" => [method_id]}
-
-        %{"kty" => "RSA"} ->
-          %{}
 
         _ ->
           %{
@@ -160,24 +159,25 @@ defmodule ExDid.Method.Jwk do
           }
       end
 
-    Map.merge(
-      %{
-        "@context" => [
-          "https://www.w3.org/ns/did/v1",
-          "https://w3id.org/security/jwk/v1"
-        ],
-        "id" => did,
-        "verificationMethod" => [
-          %{
-            "id" => method_id,
-            "type" => "JsonWebKey",
-            "controller" => did,
-            "publicKeyJwk" => public_jwk
-          }
-        ]
-      },
-      relationships
-    )
+    {:ok,
+     Map.merge(
+       %{
+         "@context" => [
+           "https://www.w3.org/ns/did/v1",
+           "https://w3id.org/security/jwk/v1"
+         ],
+         "id" => did,
+         "verificationMethod" => [
+           %{
+             "id" => method_id,
+             "type" => "JsonWebKey",
+             "controller" => did,
+             "publicKeyJwk" => public_jwk
+           }
+         ]
+       },
+       relationships
+     )}
   end
 
   defp decorate_resource(%{} = resource),
