@@ -1,0 +1,20 @@
+{
+  "name": "ex-did-upstream-parity",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.6.5",
+  "description": "Maintainer-only recorder for ex_did upstream JS parity fixtures.",
+  "scripts": {
+    "record:released": "node record.js released",
+    "record:main": "node record.js main"
+  },
+  "dependencies": {
+    "@digitalbazaar/ed25519-verification-key-2020": "4.2.0",
+    "@digitalbazaar/did-method-jwk": "2.0.0",
+    "@digitalbazaar/did-method-key": "5.2.0",
+    "@digitalbazaar/did-method-web": "1.0.1",
+    "@digitalbazaar/x25519-key-agreement-key-2020": "3.0.1",
+    "did-resolver": "4.1.0",
+    "web-did-resolver": "2.0.30"
+  }
+}

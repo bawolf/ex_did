@@ -1,0 +1,32 @@
+{
+  "id": "did-key-x25519-resolve",
+  "operation": "resolve",
+  "input": "did:key:z6LSotGbgPCJD2Y6TSvvgxERLTfVZxCh9KSrez3WNrNp7vKW",
+  "provenance": {
+    "sourcePackage": "@digitalbazaar/did-method-key",
+    "sourceUrl": "https://www.npmjs.com/package/@digitalbazaar/did-method-key"
+  },
+  "expected": {
+    "didDocument": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/suites/x25519-2020/v1"
+      ],
+      "id": "did:key:z6LSotGbgPCJD2Y6TSvvgxERLTfVZxCh9KSrez3WNrNp7vKW",
+      "keyAgreement": [
+        {
+          "id": "did:key:z6LSotGbgPCJD2Y6TSvvgxERLTfVZxCh9KSrez3WNrNp7vKW#z6LSotGbgPCJD2Y6TSvvgxERLTfVZxCh9KSrez3WNrNp7vKW",
+          "type": "X25519KeyAgreementKey2020",
+          "controller": "did:key:z6LSotGbgPCJD2Y6TSvvgxERLTfVZxCh9KSrez3WNrNp7vKW",
+          "publicKeyMultibase": "z6LSotGbgPCJD2Y6TSvvgxERLTfVZxCh9KSrez3WNrNp7vKW"
+        }
+      ]
+    },
+    "didDocumentMetadata": {
+      "source": "local"
+    },
+    "didResolutionMetadata": {
+      "contentType": "application/did+json"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "@context": ["https://www.w3.org/ns/did/v1"],
+  "id": "did:key:z6LSbk7MN8NDFRJBo2wkq5sYG4XonrAvuJVkS4NaaDcbD6Th",
+  "verificationMethod": [
+    {
+      "id": "did:key:z6LSbk7MN8NDFRJBo2wkq5sYG4XonrAvuJVkS4NaaDcbD6Th#z6LSbk7MN8NDFRJBo2wkq5sYG4XonrAvuJVkS4NaaDcbD6Th",
+      "type": "X25519KeyAgreementKey2020",
+      "controller": "did:key:z6LSbk7MN8NDFRJBo2wkq5sYG4XonrAvuJVkS4NaaDcbD6Th",
+      "publicKeyMultibase": "z6LSbk7MN8NDFRJBo2wkq5sYG4XonrAvuJVkS4NaaDcbD6Th"
+    }
+  ],
+  "keyAgreement": [
+    "did:key:z6LSbk7MN8NDFRJBo2wkq5sYG4XonrAvuJVkS4NaaDcbD6Th#z6LSbk7MN8NDFRJBo2wkq5sYG4XonrAvuJVkS4NaaDcbD6Th"
+  ]
+}

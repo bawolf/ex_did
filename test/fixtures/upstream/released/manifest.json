@@ -1,0 +1,99 @@
+{
+  "schemaVersion": 1,
+  "advisory": false,
+  "channel": "released",
+  "generatedAt": "2026-03-10T23:53:04.945Z",
+  "recorder": {
+    "name": "ex_did_upstream_parity",
+    "packageManager": "pnpm"
+  },
+  "packages": {
+    "@digitalbazaar/ed25519-verification-key-2020": "4.2.0",
+    "@digitalbazaar/did-method-jwk": "2.0.0",
+    "@digitalbazaar/did-method-key": "5.2.0",
+    "@digitalbazaar/did-method-web": "1.0.1",
+    "@digitalbazaar/x25519-key-agreement-key-2020": "3.0.1",
+    "did-resolver": "4.1.0",
+    "web-did-resolver": "2.0.30"
+  },
+  "cases": [
+    {
+      "id": "did-key-ed25519-resolve",
+      "operation": "resolve",
+      "input": "did:key:z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T",
+      "file": "did-key-ed25519-resolve.json"
+    },
+    {
+      "id": "did-key-ed25519-representation",
+      "operation": "resolveRepresentation",
+      "input": "did:key:z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T",
+      "file": "did-key-ed25519-representation.json"
+    },
+    {
+      "id": "did-key-ed25519-dereference",
+      "operation": "dereference",
+      "input": "did:key:z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T#z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T",
+      "file": "did-key-ed25519-dereference.json"
+    },
+    {
+      "id": "did-key-x25519-resolve",
+      "operation": "resolve",
+      "input": "did:key:z6LSotGbgPCJD2Y6TSvvgxERLTfVZxCh9KSrez3WNrNp7vKW",
+      "file": "did-key-x25519-resolve.json"
+    },
+    {
+      "id": "did-jwk-okp-resolve",
+      "operation": "resolve",
+      "input": "did:jwk:eyJrdHkiOiJPS1AiLCJjcnYiOiJFZDI1NTE5IiwieCI6IlZDcG8yTE1MaG42aVdrdThNS3ZTTGcyWkFvQy1ubE95UFZRYU8zRnhWZVEifQ",
+      "file": "did-jwk-okp-resolve.json"
+    },
+    {
+      "id": "did-jwk-okp-representation",
+      "operation": "resolveRepresentation",
+      "input": "did:jwk:eyJrdHkiOiJPS1AiLCJjcnYiOiJFZDI1NTE5IiwieCI6IlZDcG8yTE1MaG42aVdrdThNS3ZTTGcyWkFvQy1ubE95UFZRYU8zRnhWZVEifQ",
+      "file": "did-jwk-okp-representation.json"
+    },
+    {
+      "id": "did-jwk-okp-dereference",
+      "operation": "dereference",
+      "input": "did:jwk:eyJrdHkiOiJPS1AiLCJjcnYiOiJFZDI1NTE5IiwieCI6IlZDcG8yTE1MaG42aVdrdThNS3ZTTGcyWkFvQy1ubE95UFZRYU8zRnhWZVEifQ#0",
+      "file": "did-jwk-okp-dereference.json"
+    },
+    {
+      "id": "did-jwk-rsa-resolve",
+      "operation": "resolve",
+      "input": "did:jwk:eyJrdHkiOiJSU0EiLCJuIjoic1hjaDRNNEZoVjZkM2lENG4xeDRZNnc4c010dndsSEdoRXEteTNPQ0FYb1RyNFdyOVBYZ0M3dlJsNlZ3QjNwNms5UmR0cXZPQjBmT2tIMVpaMXhkNlEiLCJlIjoiQVFBQiJ9",
+      "file": "did-jwk-rsa-resolve.json"
+    },
+    {
+      "id": "did-web-root-resolve",
+      "operation": "resolve",
+      "input": "did:web:localhost%3A57432",
+      "file": "did-web-root-resolve.json"
+    },
+    {
+      "id": "did-web-root-representation",
+      "operation": "resolveRepresentation",
+      "input": "did:web:localhost%3A57432",
+      "file": "did-web-root-representation.json"
+    },
+    {
+      "id": "did-web-root-dereference",
+      "operation": "dereference",
+      "input": "did:web:localhost%3A57432#key-1",
+      "file": "did-web-root-dereference.json"
+    },
+    {
+      "id": "did-web-path-resolve",
+      "operation": "resolve",
+      "input": "did:web:localhost%3A57432:user:alice",
+      "file": "did-web-path-resolve.json"
+    },
+    {
+      "id": "did-web-path-dereference",
+      "operation": "dereference",
+      "input": "did:web:localhost%3A57432:user:alice#key-1",
+      "file": "did-web-path-dereference.json"
+    }
+  ]
+}

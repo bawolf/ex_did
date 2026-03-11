@@ -1,0 +1,24 @@
+{
+  "id": "did-key-ed25519-dereference",
+  "operation": "dereference",
+  "input": "did:key:z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T#z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T",
+  "provenance": {
+    "sourcePackage": "@digitalbazaar/did-method-key",
+    "sourceUrl": "https://www.npmjs.com/package/@digitalbazaar/did-method-key"
+  },
+  "expected": {
+    "contentStream": {
+      "@context": "https://w3id.org/security/suites/ed25519-2020/v1",
+      "id": "did:key:z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T#z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T",
+      "type": "Ed25519VerificationKey2020",
+      "controller": "did:key:z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T",
+      "publicKeyMultibase": "z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T"
+    },
+    "contentMetadata": {
+      "did_document": "did:key:z6MknCCLeeHBUaHu4aHSVLDCYQW9gjVJ7a63FpMvtuVMy53T"
+    },
+    "dereferencingMetadata": {
+      "contentType": "application/did+json"
+    }
+  }
+}

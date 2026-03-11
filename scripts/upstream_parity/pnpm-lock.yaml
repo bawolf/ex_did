@@ -1,0 +1,252 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      '@digitalbazaar/did-method-jwk':
+        specifier: 2.0.0
+        version: 2.0.0
+      '@digitalbazaar/did-method-key':
+        specifier: 5.2.0
+        version: 5.2.0
+      '@digitalbazaar/did-method-web':
+        specifier: 1.0.1
+        version: 1.0.1
+      '@digitalbazaar/ed25519-verification-key-2020':
+        specifier: 4.2.0
+        version: 4.2.0
+      '@digitalbazaar/x25519-key-agreement-key-2020':
+        specifier: 3.0.1
+        version: 3.0.1
+      did-resolver:
+        specifier: 4.1.0
+        version: 4.1.0
+      web-did-resolver:
+        specifier: 2.0.30
+        version: 2.0.30
+
+packages:
+
+  '@digitalbazaar/did-io@2.1.0':
+    resolution: {integrity: sha512-hIS3GQYFwvVEpUGtvL2yqvm4hk/K/I+plwp4dNKobuVICPJUTnqzdyLzoZ6FfNMnS1+ixEG9WYU1bAUW1kbkUw==}
+    engines: {node: '>=14'}
+
+  '@digitalbazaar/did-method-jwk@2.0.0':
+    resolution: {integrity: sha512-I426Hj91v7CwwR0WPH3rqGBy2aTBl1SACSiHYwe/eDHz+1exRsZf6Jbxn72DugcTwi8+uBzAat1YKOClJR0OBA==}
+    engines: {node: '>=20'}
+
+  '@digitalbazaar/did-method-key@5.2.0':
+    resolution: {integrity: sha512-67JerSdJWAVI1wrZftLFIvjifRk5R3uX5r91GgVHiMbDlkj01Nt7HuqzMSKHG9bXcvJbMhgprlS9BWzPeaiFRw==}
+    engines: {node: '>=16'}
+
+  '@digitalbazaar/did-method-web@1.0.1':
+    resolution: {integrity: sha512-Yzg6NV+n9uIEFeqeKzkaOkKNfoTT78p2diB+q2NWRyb83WsSikQPoBbo3YMTn6TbQcLB8cJpfFzrQOauTqJtaw==}
+    engines: {node: '>=18'}
+
+  '@digitalbazaar/ed25519-verification-key-2020@4.2.0':
+    resolution: {integrity: sha512-urEVTYkt+uYD8GjdoS6gkm2sKBich1hqx42b6vvUOmNgF0agZ95JlUjiJXEx+VOwu7WSjJSnEBph2Qatkrk1CA==}
+    engines: {node: '>=14'}
+
+  '@digitalbazaar/http-client@4.3.0':
+    resolution: {integrity: sha512-6lMpxpt9BOmqHKGs9Xm6DP4LlZTBFer/ZjHvP3FcW3IaUWYIWC7dw5RFZnvw4fP57kAVcm1dp3IF+Y50qhBvAw==}
+    engines: {node: '>=18.0'}
+
+  '@digitalbazaar/lru-memoize@3.0.2':
+    resolution: {integrity: sha512-O7fv5GnFY/XZggJ3bQuce1E4LcFxrexSJmubto8v3YABaIuP5McQFAxn3m9oV6BHRQXa/wURItpvY/g5X3kwVw==}
+    engines: {node: '>=14'}
+
+  '@digitalbazaar/x25519-key-agreement-key-2019@6.0.0':
+    resolution: {integrity: sha512-3EV/x7/Sa5mOAuPf0Z0Fi+BsIQKR5Qi2u/KNUgMc1fHx9jQZWjF3//1hvSDDrKV+FKfhAg10S7EcgU04f5tjog==}
+    engines: {node: '>=14'}
+
+  '@digitalbazaar/x25519-key-agreement-key-2020@3.0.1':
+    resolution: {integrity: sha512-GmpPEc3ZD/7fz3St38ELa8qgJzjfTxCJi7cwAYPAcZ8Iynldj8sSf2hIblYjjlB82pIENhyXLQHcIALluGcrqA==}
+    engines: {node: '>=14'}
+
+  '@noble/ed25519@1.7.5':
+    resolution: {integrity: sha512-xuS0nwRMQBvSxDa7UxMb61xTiH3MxTgUfhyPUALVIe0FlOAz4sjELwyDRyUvqeEYfRSG9qNjFIycqLZppg4RSA==}
+
+  base58-universal@2.0.0:
+    resolution: {integrity: sha512-BgkgF8zVLOAygszG4W8NkLm7iXrw80VYAOcedrzANrIhS14+4W6zVqjyGTFUBM/FpqkHUt8aAYd4DbBBfn3zKg==}
+    engines: {node: '>=14'}
+
+  base64url-universal@2.0.0:
+    resolution: {integrity: sha512-6Hpg7EBf3t148C3+fMzjf+CHnADVDafWzlJUXAqqqbm4MKNXbsoPdOkWeRTjNlkYG7TpyjIpRO1Gk0SnsFD1rw==}
+    engines: {node: '>=14'}
+
+  base64url@3.0.1:
+    resolution: {integrity: sha512-ir1UPr3dkwexU7FdV8qBBbNDRUhMmIekYMFZfi+C/sLNnRESKPl23nB9b2pltqfOQNnGzsDdId90AEtG5tCx4A==}
+    engines: {node: '>=6.0.0'}
+
+  cross-fetch@4.1.0:
+    resolution: {integrity: sha512-uKm5PU+MHTootlWEY+mZ4vvXoCn4fLQxT9dSc1sXVMSFkINTJVN8cAQROpwcKm8bJ/c7rgZVIBWzH5T78sNZZw==}
+
+  crypto-ld@7.0.0:
+    resolution: {integrity: sha512-RrXy6aB0TOhSiqsgavTQt1G8mKomKIaNLb2JZxj7A/Vi0EwmXguuBQoeiAvePfK6bDR3uQbqYnaLLs4irTWwgw==}
+    engines: {node: '>=14'}
+
+  did-resolver@4.1.0:
+    resolution: {integrity: sha512-S6fWHvCXkZg2IhS4RcVHxwuyVejPR7c+a4Go0xbQ9ps5kILa8viiYQgrM4gfTyeTjJ0ekgJH9gk/BawTpmkbZA==}
+
+  ed2curve@0.3.0:
+    resolution: {integrity: sha512-8w2fmmq3hv9rCrcI7g9hms2pMunQr1JINfcjwR9tAyZqhtyaMN991lF/ZfHfr5tzZQ8c7y7aBgZbjfbd0fjFwQ==}
+
+  klona@2.0.6:
+    resolution: {integrity: sha512-dhG34DXATL5hSxJbIexCft8FChFXtmskoZYnoPWjXQuebWYCNkVeV3KkGegCK9CP1oswI/vQibS2GY7Em/sJJA==}
+    engines: {node: '>= 8'}
+
+  ky@1.14.3:
+    resolution: {integrity: sha512-9zy9lkjac+TR1c2tG+mkNSVlyOpInnWdSMiue4F+kq8TwJSgv6o8jhLRg8Ho6SnZ9wOYUq/yozts9qQCfk7bIw==}
+    engines: {node: '>=18'}
+
+  lru-cache@6.0.0:
+    resolution: {integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==}
+    engines: {node: '>=10'}
+
+  node-fetch@2.7.0:
+    resolution: {integrity: sha512-c4FRfUm/dbcWZ7U+1Wq0AwCyFL+3nt2bEw05wfxSz+DWpWsitgmSgYmy2dQdWyKC1694ELPqMs/YzUSNozLt8A==}
+    engines: {node: 4.x || >=6.0.0}
+    peerDependencies:
+      encoding: ^0.1.0
+    peerDependenciesMeta:
+      encoding:
+        optional: true
+
+  tr46@0.0.3:
+    resolution: {integrity: sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==}
+
+  tweetnacl@1.0.3:
+    resolution: {integrity: sha512-6rt+RN7aOi1nGMyC4Xa5DdYiukl2UWCbcJft7YhxReBGQD7OAM8Pbxw6YMo4r2diNEA8FEmu32YOn9rhaiE5yw==}
+
+  undici@6.23.0:
+    resolution: {integrity: sha512-VfQPToRA5FZs/qJxLIinmU59u0r7LXqoJkCzinq3ckNJp3vKEh7jTWN589YQ5+aoAC/TGRLyJLCPKcLQbM8r9g==}
+    engines: {node: '>=18.17'}
+
+  web-did-resolver@2.0.30:
+    resolution: {integrity: sha512-lsv0T+y/zD1bEVkcNfcppk4hQXBlqqoXfYcRG4183Yv53FkY29HNPGErwkNI/AG+lxxsUIR77JqS6pn9uHw/Vw==}
+
+  webidl-conversions@3.0.1:
+    resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
+
+  whatwg-url@5.0.0:
+    resolution: {integrity: sha512-saE57nupxk6v3HY35+jzBwYa0rKSy0XR8JSxZPwgLr7ys0IBzhGviA1/TUGJLmSVqs8pb9AnvICXEuOHLprYTw==}
+
+  yallist@4.0.0:
+    resolution: {integrity: sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==}
+
+snapshots:
+
+  '@digitalbazaar/did-io@2.1.0':
+    dependencies:
+      '@digitalbazaar/lru-memoize': 3.0.2
+
+  '@digitalbazaar/did-method-jwk@2.0.0':
+    dependencies:
+      base64url-universal: 2.0.0
+
+  '@digitalbazaar/did-method-key@5.2.0':
+    dependencies:
+      '@digitalbazaar/did-io': 2.1.0
+      '@digitalbazaar/x25519-key-agreement-key-2019': 6.0.0
+      '@digitalbazaar/x25519-key-agreement-key-2020': 3.0.1
+
+  '@digitalbazaar/did-method-web@1.0.1':
+    dependencies:
+      '@digitalbazaar/did-io': 2.1.0
+      '@digitalbazaar/did-method-key': 5.2.0
+      '@digitalbazaar/http-client': 4.3.0
+      klona: 2.0.6
+
+  '@digitalbazaar/ed25519-verification-key-2020@4.2.0':
+    dependencies:
+      '@noble/ed25519': 1.7.5
+      base58-universal: 2.0.0
+      base64url-universal: 2.0.0
+      crypto-ld: 7.0.0
+
+  '@digitalbazaar/http-client@4.3.0':
+    dependencies:
+      ky: 1.14.3
+      undici: 6.23.0
+
+  '@digitalbazaar/lru-memoize@3.0.2':
+    dependencies:
+      lru-cache: 6.0.0
+
+  '@digitalbazaar/x25519-key-agreement-key-2019@6.0.0':
+    dependencies:
+      '@noble/ed25519': 1.7.5
+      base58-universal: 2.0.0
+      crypto-ld: 7.0.0
+      ed2curve: 0.3.0
+      tweetnacl: 1.0.3
+
+  '@digitalbazaar/x25519-key-agreement-key-2020@3.0.1':
+    dependencies:
+      '@noble/ed25519': 1.7.5
+      base58-universal: 2.0.0
+      crypto-ld: 7.0.0
+      tweetnacl: 1.0.3
+
+  '@noble/ed25519@1.7.5': {}
+
+  base58-universal@2.0.0: {}
+
+  base64url-universal@2.0.0:
+    dependencies:
+      base64url: 3.0.1
+
+  base64url@3.0.1: {}
+
+  cross-fetch@4.1.0:
+    dependencies:
+      node-fetch: 2.7.0
+    transitivePeerDependencies:
+      - encoding
+
+  crypto-ld@7.0.0: {}
+
+  did-resolver@4.1.0: {}
+
+  ed2curve@0.3.0:
+    dependencies:
+      tweetnacl: 1.0.3
+
+  klona@2.0.6: {}
+
+  ky@1.14.3: {}
+
+  lru-cache@6.0.0:
+    dependencies:
+      yallist: 4.0.0
+
+  node-fetch@2.7.0:
+    dependencies:
+      whatwg-url: 5.0.0
+
+  tr46@0.0.3: {}
+
+  tweetnacl@1.0.3: {}
+
+  undici@6.23.0: {}
+
+  web-did-resolver@2.0.30:
+    dependencies:
+      cross-fetch: 4.1.0
+      did-resolver: 4.1.0
+    transitivePeerDependencies:
+      - encoding
+
+  webidl-conversions@3.0.1: {}
+
+  whatwg-url@5.0.0:
+    dependencies:
+      tr46: 0.0.3
+      webidl-conversions: 3.0.1
+
+  yallist@4.0.0: {}

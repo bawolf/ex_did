@@ -1,0 +1,28 @@
+{
+  "id": "did-jwk-okp-dereference",
+  "operation": "dereference",
+  "input": "did:jwk:eyJrdHkiOiJPS1AiLCJjcnYiOiJFZDI1NTE5IiwieCI6IlZDcG8yTE1MaG42aVdrdThNS3ZTTGcyWkFvQy1ubE95UFZRYU8zRnhWZVEifQ#0",
+  "provenance": {
+    "sourcePackage": "@digitalbazaar/did-method-jwk",
+    "sourceUrl": "https://www.npmjs.com/package/@digitalbazaar/did-method-jwk"
+  },
+  "expected": {
+    "contentStream": {
+      "@context": "https://w3id.org/security/jwk/v1",
+      "id": "did:jwk:eyJrdHkiOiJPS1AiLCJjcnYiOiJFZDI1NTE5IiwieCI6IlZDcG8yTE1MaG42aVdrdThNS3ZTTGcyWkFvQy1ubE95UFZRYU8zRnhWZVEifQ#0",
+      "type": "JsonWebKey",
+      "controller": "did:jwk:eyJrdHkiOiJPS1AiLCJjcnYiOiJFZDI1NTE5IiwieCI6IlZDcG8yTE1MaG42aVdrdThNS3ZTTGcyWkFvQy1ubE95UFZRYU8zRnhWZVEifQ",
+      "publicKeyJwk": {
+        "kty": "OKP",
+        "crv": "Ed25519",
+        "x": "VCpo2LMLhn6iWku8MKvSLg2ZAoC-nlOyPVQaO3FxVeQ"
+      }
+    },
+    "contentMetadata": {
+      "did_document": "did:jwk:eyJrdHkiOiJPS1AiLCJjcnYiOiJFZDI1NTE5IiwieCI6IlZDcG8yTE1MaG42aVdrdThNS3ZTTGcyWkFvQy1ubE95UFZRYU8zRnhWZVEifQ"
+    },
+    "dereferencingMetadata": {
+      "contentType": "application/did+json"
+    }
+  }
+}

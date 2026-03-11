@@ -1,0 +1,48 @@
+{
+  "id": "did-web-root-representation",
+  "operation": "resolveRepresentation",
+  "input": "did:web:localhost%3A57432",
+  "provenance": {
+    "sourcePackage": "web-did-resolver",
+    "sourceUrl": "https://www.npmjs.com/package/web-did-resolver"
+  },
+  "expected": {
+    "contentType": "application/did+ld+json",
+    "contentStream": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1"
+      ],
+      "id": "did:web:localhost%3A57432",
+      "verificationMethod": [
+        {
+          "id": "did:web:localhost%3A57432#key-1",
+          "type": "JsonWebKey2020",
+          "controller": "did:web:localhost%3A57432",
+          "publicKeyJwk": {
+            "kty": "OKP",
+            "crv": "Ed25519",
+            "x": "VCpo2LMLhn6iWku8MKvSLg2ZAoC-nlOyPVQaO3FxVeQ"
+          }
+        }
+      ],
+      "authentication": [
+        "did:web:localhost%3A57432#key-1"
+      ],
+      "assertionMethod": [
+        "did:web:localhost%3A57432#key-1"
+      ],
+      "capabilityInvocation": [
+        "did:web:localhost%3A57432#key-1"
+      ],
+      "capabilityDelegation": [
+        "did:web:localhost%3A57432#key-1"
+      ]
+    },
+    "didDocumentMetadata": {
+      "sourceUrl": "https://localhost:57432/.well-known/did.json"
+    },
+    "didResolutionMetadata": {
+      "contentType": "application/did+ld+json"
+    }
+  }
+}

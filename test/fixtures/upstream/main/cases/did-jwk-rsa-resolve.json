@@ -1,0 +1,36 @@
+{
+  "id": "did-jwk-rsa-resolve",
+  "operation": "resolve",
+  "input": "did:jwk:eyJrdHkiOiJSU0EiLCJuIjoic1hjaDRNNEZoVjZkM2lENG4xeDRZNnc4c010dndsSEdoRXEteTNPQ0FYb1RyNFdyOVBYZ0M3dlJsNlZ3QjNwNms5UmR0cXZPQjBmT2tIMVpaMXhkNlEiLCJlIjoiQVFBQiJ9",
+  "provenance": {
+    "sourcePackage": "@digitalbazaar/did-method-jwk",
+    "sourceUrl": "https://www.npmjs.com/package/@digitalbazaar/did-method-jwk"
+  },
+  "expected": {
+    "didDocument": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1",
+        "https://w3id.org/security/jwk/v1"
+      ],
+      "id": "did:jwk:eyJrdHkiOiJSU0EiLCJuIjoic1hjaDRNNEZoVjZkM2lENG4xeDRZNnc4c010dndsSEdoRXEteTNPQ0FYb1RyNFdyOVBYZ0M3dlJsNlZ3QjNwNms5UmR0cXZPQjBmT2tIMVpaMXhkNlEiLCJlIjoiQVFBQiJ9",
+      "verificationMethod": [
+        {
+          "id": "did:jwk:eyJrdHkiOiJSU0EiLCJuIjoic1hjaDRNNEZoVjZkM2lENG4xeDRZNnc4c010dndsSEdoRXEteTNPQ0FYb1RyNFdyOVBYZ0M3dlJsNlZ3QjNwNms5UmR0cXZPQjBmT2tIMVpaMXhkNlEiLCJlIjoiQVFBQiJ9#0",
+          "type": "JsonWebKey",
+          "controller": "did:jwk:eyJrdHkiOiJSU0EiLCJuIjoic1hjaDRNNEZoVjZkM2lENG4xeDRZNnc4c010dndsSEdoRXEteTNPQ0FYb1RyNFdyOVBYZ0M3dlJsNlZ3QjNwNms5UmR0cXZPQjBmT2tIMVpaMXhkNlEiLCJlIjoiQVFBQiJ9",
+          "publicKeyJwk": {
+            "kty": "RSA",
+            "n": "sXch4M4FhV6d3iD4n1x4Y6w8sMtvwlHGhEq-y3OCAXoTr4Wr9PXgC7vRl6VwB3p6k9RdtqvOB0fOkH1ZZ1xd6Q",
+            "e": "AQAB"
+          }
+        }
+      ]
+    },
+    "didDocumentMetadata": {
+      "source": "local"
+    },
+    "didResolutionMetadata": {
+      "contentType": "application/did+json"
+    }
+  }
+}

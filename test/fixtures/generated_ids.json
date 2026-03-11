@@ -1,0 +1,80 @@
+{
+  "generated_at": "2026-03-10T00:00:00Z",
+  "sources": [
+    {
+      "fixture": "did_web_valid.json",
+      "source": {
+        "type": "reference",
+        "urls": [
+          "https://www.w3.org/TR/did-1.0/",
+          "https://w3c-ccg.github.io/did-method-web/"
+        ],
+        "note": "Local vendored example aligned to DID Core and did:web examples"
+      }
+    },
+    {
+      "fixture": "did_web_service_map.json",
+      "source": {
+        "type": "compat",
+        "urls": [
+          "https://github.com/decentralized-identity/did-resolver"
+        ],
+        "note": "Compat fixture exercising single-service normalization"
+      }
+    },
+    {
+      "fixture": "did_key_valid.json",
+      "source": {
+        "type": "reference",
+        "urls": [
+          "https://w3c-ccg.github.io/did-method-key/"
+        ],
+        "note": "Generated locally from ex_did deterministic did:key helper"
+      }
+    },
+    {
+      "fixture": "did_key_x25519_valid.json",
+      "source": {
+        "type": "reference",
+        "urls": [
+          "https://w3c-ccg.github.io/did-method-key/"
+        ],
+        "note": "Generated locally from ex_did deterministic X25519 did:key helper"
+      }
+    },
+    {
+      "fixture": "did_jwk_valid.json",
+      "source": {
+        "type": "reference",
+        "urls": [
+          "https://github.com/quartzjer/did-jwk"
+        ],
+        "note": "Generated locally from ex_did deterministic did:jwk helper"
+      }
+    },
+    {
+      "fixture": "did_jwk_rsa_valid.json",
+      "source": {
+        "type": "reference",
+        "urls": [
+          "https://github.com/quartzjer/did-jwk"
+        ],
+        "note": "Generated locally from ex_did deterministic RSA did:jwk helper"
+      }
+    },
+    {
+      "fixture": "generated_ids.json",
+      "source": {
+        "type": "generated",
+        "urls": [],
+        "note": "Generated locally from ex_did deterministic did:key and did:jwk helpers"
+      }
+    }
+  ],
+  "generated": {
+    "did_key": "did:key:z6MkeXCES4onVW4up9Qgz1KRnZsKmGufcaZxF6Zpv2w5QwUK",
+    "did_key_x25519": "did:key:z6LSbk7MN8NDFRJBo2wkq5sYG4XonrAvuJVkS4NaaDcbD6Th",
+    "did_jwk": "did:jwk:eyJrdHkiOiJPS1AiLCJjcnYiOiJFZDI1NTE5IiwieCI6IlZDcG8yTE1MaG42aVdrdThNS3ZTTGcyWkFvQy1ubE95UFZRYU8zRnhWZVEifQ",
+    "did_jwk_rsa": "did:jwk:eyJrdHkiOiJSU0EiLCJuIjoic1hjaDRNNEZoVjZkM2lENG4xeDRZNnc4c010dndsSEdoRXEteTNPQ0FYb1RyNFdyOVBYZ0M3dlJsNlZ3QjNwNms5UmR0cXZPQjBmT2tIMVpaMXhkNlEiLCJlIjoiQVFBQiJ9"
+  }
+}

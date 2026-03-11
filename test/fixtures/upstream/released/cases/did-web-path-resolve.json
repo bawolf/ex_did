@@ -1,0 +1,41 @@
+{
+  "id": "did-web-path-resolve",
+  "operation": "resolve",
+  "input": "did:web:localhost%3A57432:user:alice",
+  "provenance": {
+    "sourcePackage": "web-did-resolver",
+    "sourceUrl": "https://www.npmjs.com/package/web-did-resolver"
+  },
+  "expected": {
+    "didDocument": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1"
+      ],
+      "id": "did:web:localhost%3A57432:user:alice",
+      "verificationMethod": [
+        {
+          "id": "did:web:localhost%3A57432:user:alice#key-1",
+          "type": "JsonWebKey2020",
+          "controller": "did:web:localhost%3A57432:user:alice",
+          "publicKeyJwk": {
+            "kty": "OKP",
+            "crv": "Ed25519",
+            "x": "VCpo2LMLhn6iWku8MKvSLg2ZAoC-nlOyPVQaO3FxVeQ"
+          }
+        }
+      ],
+      "authentication": [
+        "did:web:localhost%3A57432:user:alice#key-1"
+      ],
+      "assertionMethod": [
+        "did:web:localhost%3A57432:user:alice#key-1"
+      ]
+    },
+    "didDocumentMetadata": {
+      "sourceUrl": "https://localhost:57432/user/alice/did.json"
+    },
+    "didResolutionMetadata": {
+      "contentType": "application/did+ld+json"
+    }
+  }
+}

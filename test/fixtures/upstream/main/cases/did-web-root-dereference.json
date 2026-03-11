@@ -1,0 +1,30 @@
+{
+  "id": "did-web-root-dereference",
+  "operation": "dereference",
+  "input": "did:web:localhost%3A57432#key-1",
+  "provenance": {
+    "sourcePackage": "@digitalbazaar/did-method-web",
+    "sourceUrl": "https://www.npmjs.com/package/@digitalbazaar/did-method-web"
+  },
+  "expected": {
+    "contentStream": {
+      "@context": [
+        "https://www.w3.org/ns/did/v1"
+      ],
+      "id": "did:web:localhost%3A57432#key-1",
+      "type": "JsonWebKey2020",
+      "controller": "did:web:localhost%3A57432",
+      "publicKeyJwk": {
+        "kty": "OKP",
+        "crv": "Ed25519",
+        "x": "VCpo2LMLhn6iWku8MKvSLg2ZAoC-nlOyPVQaO3FxVeQ"
+      }
+    },
+    "contentMetadata": {
+      "did_document": "did:web:localhost%3A57432"
+    },
+    "dereferencingMetadata": {
+      "contentType": "application/did+ld+json"
+    }
+  }
+}
