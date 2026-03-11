@@ -7,6 +7,21 @@ and this project intends to follow [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-03-11
+
+### Changed
+- Made strict DID output canonical per method instead of allowing output-family drift:
+  `did:key` strict is now consistently Multikey-first across supported multicodecs,
+  while `did:jwk` strict remains JWK-native.
+- Confined `validation: :compat` to legacy/interoperability quirks rather than
+  alternate canonical output families.
+- Clarified README, Hex docs, and fixture policy around the strict/compat
+  contract and the role of the JavaScript and `ssi-dids` parity corpora.
+
+### Removed
+- Deleted stale local deterministic fixture artifacts and the orphaned fixture
+  refresh script that no longer defined the current resolver contract.
+
 ## [0.1.1] - 2026-03-11
 
 ### Added
