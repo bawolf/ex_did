@@ -7,9 +7,6 @@ on:
         description: "Version being published"
         required: true
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 permissions:
   contents: write
 
@@ -42,30 +39,20 @@ jobs:
             echo "exists=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Run release gate
-        run: mix release.gate
+      - name: Run tests
+        run: mix test
+
+      - name: Build docs
+        run: mix docs
 
       - name: Publish to Hex
+        if: steps.hex_check.outputs.exists != 'true'
         env:
           HEX_API_KEY: ${{ secrets.HEX_API_KEY }}
-        run: |
-          if [ "${{ steps.hex_check.outputs.exists }}" = "true" ]; then
-            echo "Hex release ${{ github.event.inputs.version }} already exists; skipping package publish."
-            exit 0
-          fi
-
-          set +e
-          output=$(mix hex.publish --yes 2>&1)
-          status=$?
-          set -e
-
-          printf '%s\n' "$output"
-
-          if [ $status -ne 0 ] && ! printf '%s\n' "$output" | grep -q 'inserted_at: must include the --replace flag'; then
-            exit $status
-          fi
+        run: mix hex.publish --yes
 
       - name: Extract release notes
+        if: steps.hex_check.outputs.exists != 'true'
         run: |
           awk '
             $0 ~ "^## \\[" "${{ github.event.inputs.version }}" "\\]" {capture=1; next}
@@ -74,6 +61,7 @@ jobs:
           ' CHANGELOG.md > "$RUNNER_TEMP/release-notes.md"
 
       - name: Create Git tag
+        if: steps.hex_check.outputs.exists != 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -84,6 +72,7 @@ jobs:
           fi
 
       - name: Create GitHub release
+        if: steps.hex_check.outputs.exists != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -92,3 +81,7 @@ jobs:
               --title "v${{ github.event.inputs.version }}" \
               --notes-file "$RUNNER_TEMP/release-notes.md"
           fi
+
+      - name: Release already exists
+        if: steps.hex_check.outputs.exists == 'true'
+        run: echo "Hex release ${{ github.event.inputs.version }} already exists; skipping publish, tag, and GitHub release creation."

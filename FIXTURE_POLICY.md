@@ -60,4 +60,4 @@ Add a compat rule only when:
 1. strict mode behavior is already clear,
 2. an upstream resolver divergence is real and reproducible,
 3. the divergence is captured in a committed fixture, and
-4. the README and tests explain the exception.
+4. the README, `INTEROP_NOTES.md`, and tests explain the exception.

@@ -7,7 +7,7 @@
 
 `ex_did` is a typed DID resolution library for Elixir.
 
-Quick links: [Hex package](https://hex.pm/packages/ex_did) | [Hex docs](https://hexdocs.pm/ex_did) | [Changelog](https://github.com/bawolf/ex_did/blob/main/CHANGELOG.md) | [Fixture policy](https://github.com/bawolf/ex_did/blob/main/FIXTURE_POLICY.md) | [CI](https://github.com/bawolf/ex_did/actions/workflows/ci.yml)
+Quick links: [Hex package](https://hex.pm/packages/ex_did) | [Hex docs](https://hexdocs.pm/ex_did) | [Changelog](https://github.com/bawolf/ex_did/blob/main/CHANGELOG.md) | [Interop notes](https://github.com/bawolf/ex_did/blob/main/INTEROP_NOTES.md) | [Fixture policy](https://github.com/bawolf/ex_did/blob/main/FIXTURE_POLICY.md) | [CI](https://github.com/bawolf/ex_did/actions/workflows/ci.yml)
 
 The library exposes a method-agnostic API for DID parsing, DID resolution, DID
 representation resolution, DID URL dereferencing, and a small number of
@@ -51,7 +51,7 @@ Add `ex_did` to your dependencies:
 ```elixir
 def deps do
   [
-    {:ex_did, "~> 0.1.1"},
+    {:ex_did, "~> 0.1.2"},
     {:jose, "~> 1.11"}
   ]
 end
@@ -240,12 +240,11 @@ The fixture policy is documented in `FIXTURE_POLICY.md`.
 - scratch captures and debug output should not be committed
 - compat behavior must be backed by committed upstream fixture evidence
 
-When the JavaScript and `ssi` ecosystems disagree, `ex_did` documents the
-disagreement in tests and keeps strict mode aligned to the library's
-method-specific canonical behavior rather than silently switching output
-shapes. In practice, that means `did:key` strict follows the library's
-Multikey-first contract while `did:jwk` strict remains JWK-native even though
-`ssi` may render that method differently.
+When the JavaScript and `ssi` ecosystems disagree, `ex_did` records the
+released divergence set in `test/fixtures/divergences/released.json`, enforces
+it in tests, and keeps strict mode aligned to the library's method-specific
+canonical behavior rather than silently switching output shapes. See
+`INTEROP_NOTES.md` for the current decision log.
 
 ## Open Source Notes
 
@@ -263,7 +262,7 @@ standalone `ex_did` repository for publishing and external consumption.
 The intended workflow is:
 
 1. make library changes in `libs/ex_did`
-2. run `mix release.gate`
+2. run `mix ex_did.release.gate`
 3. sync the package into a clean checkout of `github.com/bawolf/ex_did`
 4. review and push from the standalone repo
 
@@ -281,5 +280,5 @@ matching Git tag and GitHub release automatically.
 Run the local release gate with:
 
 ```bash
-mix release.gate
+mix ex_did.release.gate
 ```

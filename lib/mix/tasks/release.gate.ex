@@ -1,4 +1,4 @@
-defmodule Mix.Tasks.Release.Gate do
+defmodule Mix.Tasks.ExDid.Release.Gate do
   use Mix.Task
 
   @shortdoc "Runs the ex_did release gate checks"
@@ -18,6 +18,7 @@ defmodule Mix.Tasks.Release.Gate do
 
   @required_docs ~w(
     README.md
+    INTEROP_NOTES.md
     FIXTURE_POLICY.md
     CHANGELOG.md
     LICENSE
@@ -25,7 +26,8 @@ defmodule Mix.Tasks.Release.Gate do
 
   @released_manifests [
     "test/fixtures/upstream/released/manifest.json",
-    "test/fixtures/upstream/ssi/released/manifest.json"
+    "test/fixtures/upstream/ssi/released/manifest.json",
+    "test/fixtures/divergences/released.json"
   ]
 
   @impl Mix.Task

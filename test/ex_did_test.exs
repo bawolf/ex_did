@@ -11,6 +11,7 @@ defmodule ExDidTest do
   @fixtures_dir Path.expand("fixtures", __DIR__)
   @upstream_dir Path.join(@fixtures_dir, "upstream")
   @ssi_upstream_dir Path.join(@upstream_dir, "ssi")
+  @divergence_manifest Path.join([@fixtures_dir, "divergences", "released.json"])
 
   describe "method/1" do
     test "extracts the method from a DID" do
@@ -577,23 +578,67 @@ defmodule ExDidTest do
       assert manifest["advisory"] == true
       assert manifest["channel"] == "main"
     end
+  end
 
-    test "documents the current js vs ssi disagreement for did:key ed25519" do
-      js_document =
-        upstream_case!("released", "did-key-ed25519-resolve")["expected"]["didDocument"]
+  describe "documented divergence log" do
+    test "covers every released JS vs ssi disagreement" do
+      documented =
+        divergence_manifest!()["divergences"]
+        |> Enum.map(& &1["file"])
+        |> MapSet.new()
 
-      ssi_document = ssi_case!("released", "did-key-ed25519-resolve")["expected"]["didDocument"]
+      actual =
+        overlapping_released_case_files()
+        |> Enum.filter(fn file ->
+          upstream_case_by_file!("released", file)["expected"] !=
+            ssi_case_by_file!("released", file)["expected"]
+        end)
+        |> MapSet.new()
 
-      refute js_document == ssi_document
-      refute ExDid.resolve(example_did_key()).did_document == js_document
+      assert documented == actual
     end
 
-    test "documents the current js vs ssi disagreement for did:jwk okp" do
-      js_document = upstream_case!("released", "did-jwk-okp-resolve")["expected"]["didDocument"]
-      ssi_document = ssi_case!("released", "did-jwk-okp-resolve")["expected"]["didDocument"]
+    test "did:key strict still follows the documented ssi-backed multikey contract" do
+      entry = divergence_entry!("did-key-ed25519-resolve.json")
 
-      refute js_document == ssi_document
-      assert ExDid.resolve(example_did_jwk()).did_document == js_document
+      assert entry["decision"] == "library_contract_wins"
+      assert entry["chosenOracle"] == "ssi"
+
+      expected = ssi_case!("released", "did-key-ed25519-resolve")["expected"]["didDocument"]
+      actual = ExDid.resolve(example_did_key()).did_document
+
+      assert actual["@context"] == expected["@context"]
+      assert actual["verificationMethod"] == expected["verificationMethod"]
+      assert actual["authentication"] == expected["authentication"]
+      assert actual["assertionMethod"] == expected["assertionMethod"]
+      assert actual["id"] == expected["id"]
+      assert Enum.all?(actual["keyAgreement"], &(&1["type"] == "Multikey"))
+    end
+
+    test "did:jwk strict still follows the documented js-backed jwk-native contract" do
+      entry = divergence_entry!("did-jwk-okp-resolve.json")
+
+      assert entry["decision"] == "library_contract_wins"
+      assert entry["chosenOracle"] == "js"
+
+      expected = upstream_case!("released", "did-jwk-okp-resolve")["expected"]["didDocument"]
+      assert ExDid.resolve(example_did_jwk()).did_document == expected
+    end
+
+    test "did:web resolve still follows the documented js-backed metadata contract" do
+      entry = divergence_entry!("did-web-root-resolve.json")
+
+      assert entry["decision"] == "library_contract_wins"
+      assert entry["chosenOracle"] == "js"
+
+      case_data = upstream_case!("released", "did-web-root-resolve")
+      result = resolve_case(case_data)
+
+      assert result.did_document == case_data["expected"]["didDocument"]
+      assert result.did_document_metadata == case_data["expected"]["didDocumentMetadata"]
+
+      assert result.did_resolution_metadata["contentType"] ==
+               case_data["expected"]["didResolutionMetadata"]["contentType"]
     end
   end
 
@@ -614,6 +659,21 @@ defmodule ExDidTest do
 
   defp upstream_case!(channel, id) do
     upstream_case_by_file!(channel, "#{id}.json")
+  end
+
+  defp divergence_manifest! do
+    @divergence_manifest
+    |> File.read!()
+    |> Jason.decode!()
+  end
+
+  defp divergence_entry!(file) do
+    divergence_manifest!()["divergences"]
+    |> Enum.find(fn entry -> entry["file"] == file end)
+    |> case do
+      nil -> flunk("missing divergence entry for #{file}")
+      entry -> entry
+    end
   end
 
   defp upstream_case_by_file!(channel, file) do
@@ -644,6 +704,24 @@ defmodule ExDidTest do
     |> Path.join(file)
     |> File.read!()
     |> Jason.decode!()
+  end
+
+  defp overlapping_released_case_files do
+    js =
+      Path.join([@upstream_dir, "released", "cases", "*.json"])
+      |> Path.wildcard()
+      |> Enum.map(&Path.basename/1)
+      |> MapSet.new()
+
+    ssi =
+      Path.join([@ssi_upstream_dir, "released", "cases", "*.json"])
+      |> Path.wildcard()
+      |> Enum.map(&Path.basename/1)
+      |> MapSet.new()
+
+    js
+    |> MapSet.intersection(ssi)
+    |> MapSet.to_list()
   end
 
   defp example_did_key do

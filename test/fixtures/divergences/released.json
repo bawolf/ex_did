@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "advisory": false,
+  "generatedAt": "2026-03-12T00:00:00Z",
+  "divergences": [
+    {
+      "file": "did-key-ed25519-resolve.json",
+      "operation": "resolve",
+      "decision": "library_contract_wins",
+      "chosenOracle": "ssi",
+      "surface": "did:key strict resolution",
+      "notes": "Strict did:key remains Multikey-first, so the contract follows the Rust multikey rendering rather than the older JS 2020-suite document shape."
+    },
+    {
+      "file": "did-key-ed25519-representation.json",
+      "operation": "resolveRepresentation",
+      "decision": "library_contract_wins",
+      "chosenOracle": "ssi",
+      "surface": "did:key strict representation",
+      "notes": "Strict did:key representation stays Multikey-first and application/did+ld+json in line with the current library contract."
+    },
+    {
+      "file": "did-key-ed25519-dereference.json",
+      "operation": "dereference",
+      "decision": "library_contract_wins",
+      "chosenOracle": "ssi",
+      "surface": "did:key strict dereferencing",
+      "notes": "Strict did:key dereferencing returns Multikey verification methods rather than the JS Ed25519VerificationKey2020 shape."
+    },
+    {
+      "file": "did-key-x25519-resolve.json",
+      "operation": "resolve",
+      "decision": "library_contract_wins",
+      "chosenOracle": "ssi",
+      "surface": "did:key strict resolution",
+      "notes": "Strict did:key is Multikey-first for all supported multicodecs, including X25519."
+    },
+    {
+      "file": "did-jwk-okp-resolve.json",
+      "operation": "resolve",
+      "decision": "library_contract_wins",
+      "chosenOracle": "js",
+      "surface": "did:jwk strict resolution",
+      "notes": "Strict did:jwk remains JWK-native rather than converting the method into a Multikey document."
+    },
+    {
+      "file": "did-jwk-okp-representation.json",
+      "operation": "resolveRepresentation",
+      "decision": "library_contract_wins",
+      "chosenOracle": "js",
+      "surface": "did:jwk strict representation",
+      "notes": "Strict did:jwk representation stays JWK-native and application/did+json."
+    },
+    {
+      "file": "did-jwk-okp-dereference.json",
+      "operation": "dereference",
+      "decision": "library_contract_wins",
+      "chosenOracle": "js",
+      "surface": "did:jwk strict dereferencing",
+      "notes": "Strict did:jwk dereferencing returns JsonWebKey content rather than a Multikey conversion."
+    },
+    {
+      "file": "did-jwk-rsa-resolve.json",
+      "operation": "resolve",
+      "decision": "library_contract_wins",
+      "chosenOracle": "js",
+      "surface": "did:jwk strict resolution",
+      "notes": "Strict did:jwk remains JWK-native for RSA as well; this case is tracked even though the current JS contract is asserted more loosely in tests."
+    },
+    {
+      "file": "did-web-root-resolve.json",
+      "operation": "resolve",
+      "decision": "library_contract_wins",
+      "chosenOracle": "js",
+      "surface": "did:web resolution metadata",
+      "notes": "The library keeps sourceUrl-style did:web metadata instead of the ssi deactivated:null metadata shape."
+    },
+    {
+      "file": "did-web-root-representation.json",
+      "operation": "resolveRepresentation",
+      "decision": "library_contract_wins",
+      "chosenOracle": "js",
+      "surface": "did:web representation metadata",
+      "notes": "did:web representation metadata follows the fetched source URL contract rather than the ssi metadata shape."
+    },
+    {
+      "file": "did-web-root-dereference.json",
+      "operation": "dereference",
+      "decision": "library_contract_wins",
+      "chosenOracle": "js",
+      "surface": "did:web dereferencing metadata",
+      "notes": "did:web dereferencing keeps the current sourceUrl-oriented contract."
+    },
+    {
+      "file": "did-web-path-resolve.json",
+      "operation": "resolve",
+      "decision": "library_contract_wins",
+      "chosenOracle": "js",
+      "surface": "did:web path resolution metadata",
+      "notes": "Path-based did:web resolution follows the same sourceUrl metadata contract as root did:web resolution."
+    },
+    {
+      "file": "did-web-path-dereference.json",
+      "operation": "dereference",
+      "decision": "library_contract_wins",
+      "chosenOracle": "js",
+      "surface": "did:web path dereferencing metadata",
+      "notes": "Path-based did:web dereferencing follows the current library metadata contract instead of the ssi metadata shape."
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 defmodule ExDid.MixProject do
   use Mix.Project
 
-  @version "0.2.0"
+  @version "0.1.2"
   @source_url "https://github.com/bawolf/ex_did"
 
   def project do
@@ -17,7 +17,7 @@ defmodule ExDid.MixProject do
       homepage_url: @source_url,
       docs: [
         main: "readme",
-        extras: ["README.md", "FIXTURE_POLICY.md", "CHANGELOG.md", "LICENSE"],
+        extras: ["README.md", "INTEROP_NOTES.md", "FIXTURE_POLICY.md", "CHANGELOG.md", "LICENSE"],
         source_ref: "v#{@version}",
         source_url: @source_url
       ]
@@ -54,7 +54,8 @@ defmodule ExDid.MixProject do
         "Docs" => "https://hexdocs.pm/ex_did",
         "CI" => "#{@source_url}/actions/workflows/ci.yml",
         "Changelog" => "#{@source_url}/blob/main/CHANGELOG.md",
-        "Fixture Policy" => "#{@source_url}/blob/main/FIXTURE_POLICY.md"
+        "Fixture Policy" => "#{@source_url}/blob/main/FIXTURE_POLICY.md",
+        "Interop Notes" => "#{@source_url}/blob/main/INTEROP_NOTES.md"
       }
     ]
   end
