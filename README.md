@@ -263,7 +263,7 @@ standalone `ex_did` repository for publishing and external consumption.
 The intended workflow is:
 
 1. make library changes in `libs/ex_did`
-2. run `mix test`
+2. run `mix release.gate`
 3. sync the package into a clean checkout of `github.com/bawolf/ex_did`
 4. review and push from the standalone repo
 
@@ -277,3 +277,9 @@ The standalone repository also carries GitHub Actions workflows for:
 The publish workflow expects a `HEX_API_KEY` repository secret in the standalone
 `ex_did` repository. Once triggered, it publishes to Hex and then creates the
 matching Git tag and GitHub release automatically.
+
+Run the local release gate with:
+
+```bash
+mix release.gate
+```
