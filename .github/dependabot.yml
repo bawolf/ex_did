@@ -1,5 +1,12 @@
 version: 2
 updates:
+  - package-ecosystem: "mix"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "elixir"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
