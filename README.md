@@ -9,6 +9,30 @@
 
 Quick links: [Hex package](https://hex.pm/packages/ex_did) | [Hex docs](https://hexdocs.pm/ex_did) | [Changelog](https://github.com/bawolf/ex_did/blob/main/CHANGELOG.md) | [Interop notes](https://github.com/bawolf/ex_did/blob/main/INTEROP_NOTES.md) | [Fixture policy](https://github.com/bawolf/ex_did/blob/main/FIXTURE_POLICY.md) | [CI](https://github.com/bawolf/ex_did/actions/workflows/ci.yml)
 
+## What Standard Is This?
+
+[Decentralized Identifiers (DIDs)](https://www.w3.org/TR/did-core/) are
+self-describing identifiers like `did:web:example.com` or `did:key:z...`. A DID
+resolves to a DID document, which usually tells other systems which keys or
+service endpoints belong to that identifier.
+
+`ex_did` implements the DID Core resolution and dereferencing boundary for
+Elixir, with first-class support for `did:web`, `did:key`, and `did:jwk`.
+
+If you want the formal standards context, start with:
+
+- [W3C DID Core](https://www.w3.org/TR/did-core/)
+- [W3C DID Specification Registries](https://www.w3.org/TR/did-spec-registries/)
+
+## Why You Might Use It
+
+Use `ex_did` when you need to:
+
+- resolve a DID into a DID document
+- dereference a DID URL like `did:web:example.com#key-1`
+- normalize verification methods into a stable, typed Elixir shape
+- support web-anchored or key-derived identities without hand-rolling DID logic
+
 The library exposes a method-agnostic API for DID parsing, DID resolution, DID
 representation resolution, DID URL dereferencing, and a small number of
 method-specific helper functions that remove common string-building mistakes.
@@ -256,19 +280,33 @@ canonical behavior rather than silently switching output shapes. See
 
 ## Maintainer Workflow
 
-`ex_did` currently lives in the `delegate` monorepo and is mirrored into the
-standalone `ex_did` repository for publishing and external consumption.
+`ex_did` is developed in the `delegate` monorepo. The public
+`github.com/bawolf/ex_did` repository is the mirrored OSS surface for issues,
+discussions, releases, and Hex publishing.
+
+The monorepo copy is authoritative for:
+
+- code
+- tests and fixtures
+- docs
+- GitHub workflows
+- release tooling
+
+Direct standalone-repo edits are temporary hotfixes only and must be
+backported to the monorepo immediately.
 
 The intended workflow is:
 
 1. make library changes in `libs/ex_did`
-2. run `mix ex_did.release.gate`
+2. run `scripts/release_preflight.sh`
 3. sync the package into a clean checkout of `github.com/bawolf/ex_did`
-4. review and push from the standalone repo
+4. verify the mirrored required file set with `scripts/verify_standalone_repo.sh`
+5. review and push from the standalone repo
 
-A helper script for the sync step lives at `scripts/sync_standalone_repo.sh`.
+A helper to sync all public package repos from the monorepo lives at
+`/Users/bryantwolf/workspace/delegate/scripts/sync_public_libs.sh`.
 
-The standalone repository also carries GitHub Actions workflows for:
+The mirrored standalone repository carries GitHub Actions workflows for:
 
 - CI on push and pull request
 - manual publish through `workflow_dispatch`
@@ -277,8 +315,28 @@ The publish workflow expects a `HEX_API_KEY` repository secret in the standalone
 `ex_did` repository. Once triggered, it publishes to Hex and then creates the
 matching Git tag and GitHub release automatically.
 
-Run the local release gate with:
+## Releasing From GitHub
+
+Releases are cut from the public `github.com/bawolf/ex_did` repository, not
+from the private monorepo checkout.
+
+The shortest safe path is:
+
+1. finish the change in `libs/ex_did`
+2. run `scripts/release_preflight.sh`
+3. sync and verify the standalone repo with `scripts/sync_standalone_repo.sh` and `scripts/verify_standalone_repo.sh`
+4. push the mirrored release commit to `main` in `github.com/bawolf/ex_did`
+5. in GitHub, go to `Actions`, choose `Publish`, and run it with the version from `mix.exs`
+
+The GitHub workflow is responsible for:
+
+- rerunning the release gate
+- publishing to Hex
+- creating the matching git tag
+- creating the matching GitHub release
+
+Run the local preflight with:
 
 ```bash
-mix ex_did.release.gate
+scripts/release_preflight.sh
 ```

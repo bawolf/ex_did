@@ -1,0 +1,51 @@
+name: Bug report
+description: Report a runtime, fixture, release, or mirror bug in ex_did
+title: "[Bug] "
+labels:
+  - bug
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: Describe the problem clearly and concisely.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Include inputs, DIDs, and commands where relevant.
+      placeholder: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Package version
+      placeholder: ex_did 0.1.2
+  - type: input
+    id: elixir
+    attributes:
+      label: Elixir / OTP
+      placeholder: Elixir 1.18.x / OTP 27
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Logs, fixtures, and links help.

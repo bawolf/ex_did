@@ -1,0 +1,36 @@
+name: Interop or spec mismatch
+description: Report a mismatch between ex_did and W3C, JavaScript, or Rust behavior
+title: "[Interop] "
+labels:
+  - interop
+body:
+  - type: dropdown
+    id: source
+    attributes:
+      label: Mismatch source
+      options:
+        - W3C suite or implementation report
+        - JavaScript implementation
+        - Rust implementation
+        - Multiple sources disagree
+    validations:
+      required: true
+  - type: textarea
+    id: surface
+    attributes:
+      label: Affected surface
+      description: DID method, resolution path, dereferencing path, or output shape.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Include fixture ids, links, and observed outputs.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected contract
+      description: Which oracle should win, and why?

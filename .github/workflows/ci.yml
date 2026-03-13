@@ -6,16 +6,13 @@ on:
       - main
   pull_request:
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Setup Elixir
         uses: erlef/setup-beam@v1
@@ -24,7 +21,7 @@ jobs:
           otp-version: "27.3"
 
       - name: Restore mix cache
-        uses: actions/cache@v5
+        uses: actions/cache@v4
         with:
           path: |
             deps
@@ -37,4 +34,4 @@ jobs:
         run: mix deps.get
 
       - name: Run release gate
-        run: mix release.gate
+        run: mix ex_did.release.gate
